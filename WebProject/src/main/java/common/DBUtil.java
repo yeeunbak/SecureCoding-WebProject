@@ -9,12 +9,7 @@ import java.sql.SQLException;
 public class DBUtil {
 
     private static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
-    
-    // Oracle XE 기준 예시
-    // XE를 쓰면 보통 jdbc:oracle:thin:@localhost:1521:XE
-    // 환경에 따라 XE 대신 XEPDB1일 수도 있음
     private static final String URL = "jdbc:oracle:thin:@localhost:1521:XE";
-    
     private static final String USER = "webuser";
     private static final String PASSWORD = "1234";
 
