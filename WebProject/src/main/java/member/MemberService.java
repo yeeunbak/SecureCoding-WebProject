@@ -8,4 +8,8 @@ public interface MemberService {
     boolean isUserIdExists(String userId);
 
     MemberDTO login(String userId, String userPw);
+    
+    MemberDTO getMemberById(String userId);
+    
+    int updateMember(MemberDTO member);
 }
