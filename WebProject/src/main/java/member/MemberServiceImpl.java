@@ -13,7 +13,7 @@ public class MemberServiceImpl implements MemberService {
     /* 회원가입 로직 실행 */
     @Override
     public int joinMember(MemberDTO member) {
-        if (memberDAO.isUserIdExists(member.getUserId())) { /* ID 중복체크 */
+        if (memberDAO.isUserIdExists(member.getUserId())) { // ID 중복체크
             return -1;
         }
 

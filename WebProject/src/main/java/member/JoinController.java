@@ -47,18 +47,18 @@ public class JoinController extends HttpServlet {
         member.setUserName(userName);
         member.setUserId(userId);
         member.setUserPw(userPw);
-        member.setBirthDate(Date.valueOf(birthDateStr)); /* 문자열 -> DATE형식 */
+        member.setBirthDate(Date.valueOf(birthDateStr)); // 문자열 -> DATE형식
         member.setUserEmail(userEmail);
 
         /* Service 호출 */
         int result = memberService.joinMember(member);
 
         if (result == -1) {
-            response.sendRedirect(request.getContextPath() + "/join.jsp?msg=duplicate"); /* 중복 ID */
+            response.sendRedirect(request.getContextPath() + "/join.jsp?msg=duplicate");  // 중복 ID
         } else if (result > 0) {
-            response.sendRedirect(request.getContextPath() + "/login.jsp"); /* 가입성공 */
+            response.sendRedirect(request.getContextPath() + "/login.jsp"); 		 	  // 가입성공
         } else {
-            response.sendRedirect(request.getContextPath() + "/join.jsp?msg=fail"); /* 가입실패 */
+            response.sendRedirect(request.getContextPath() + "/join.jsp?msg=fail");  	  // 가입실패
         }
     }
 }
