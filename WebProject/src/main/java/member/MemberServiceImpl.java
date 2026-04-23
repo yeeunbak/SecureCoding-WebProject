@@ -13,8 +13,12 @@ public class MemberServiceImpl implements MemberService {
     /* 회원가입 로직 실행 */
     @Override
     public int joinMember(MemberDTO member) {
+    	
         if (memberDAO.isUserIdExists(member.getUserId())) { // ID 중복체크
             return -1;
+        }
+        if (memberDAO.isEmailExists(member.getUserEmail())) { // 이메일 중복체크
+            return -2;
         }
 
         /* 사용자 OR 관리자 -> 사용자 DEFAULT */
@@ -29,6 +33,11 @@ public class MemberServiceImpl implements MemberService {
         return memberDAO.isUserIdExists(userId);
     }
 
+    @Override
+    public boolean isEmailExists(String email) {
+        return memberDAO.isEmailExists(email);
+    }
+    
     @Override
     public MemberDTO login(String userId, String userPw) {
         return memberDAO.login(userId, userPw);

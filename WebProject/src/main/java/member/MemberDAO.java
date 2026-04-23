@@ -68,6 +68,33 @@ public class MemberDAO {
         return exists;
     }
 
+    /* 회원가입 시, 이미 존재하는 email 있는지 비교 */ 
+    public boolean isEmailExists(String email) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        boolean exists = false;
+
+        String sql = "SELECT COUNT(*) FROM TB_MEMBER WHERE USER_EMAIL = ?";
+
+        try {
+            conn = DBUtil.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, email);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                exists = rs.getInt(1) > 0;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBUtil.close(rs, pstmt, conn);
+        }
+
+        return exists;
+    }
     /* 로그인 -> 단순 문자비교 */
     public MemberDTO login(String userId, String userPw) {
         Connection conn = null;

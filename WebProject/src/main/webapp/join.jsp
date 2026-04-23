@@ -47,6 +47,8 @@ const msg = "<%= request.getParameter("msg") == null ? "" : request.getParameter
     
 if (msg === "duplicate") {
     alert("이미 사용 중인 아이디입니다.");
+} else if (msg === "duplicateEmail") {
+    alert("이미 사용 중인 이메일입니다.");
 } else if (msg === "fail") {
     alert("회원가입 실패");
 }
