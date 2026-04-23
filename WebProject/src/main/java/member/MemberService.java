@@ -1,0 +1,11 @@
+package member;
+
+public interface MemberService {
+
+	/* 필요한 메서드 -> 구현 MemberServiceImpl */
+    int joinMember(MemberDTO member);
+
+    boolean isUserIdExists(String userId);
+
+    MemberDTO login(String userId, String userPw);
+}
