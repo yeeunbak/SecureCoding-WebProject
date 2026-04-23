@@ -49,6 +49,13 @@ public class UpdateMemberController extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
         
+        HttpSession session = request.getSession(false);
+
+        if (session == null || session.getAttribute("loginId") == null) {
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            return;
+        }
+        
         String userId = request.getParameter("userId");
         String userPw = request.getParameter("userPw");
         String userName = request.getParameter("userName");
@@ -66,11 +73,7 @@ public class UpdateMemberController extends HttpServlet {
         int result = memberService.updateMember(member);
 
         if (result > 0) {
-            HttpSession session = request.getSession(false);
-            if (session != null) {
-                session.setAttribute("loginName", userName);
-            }
-
+            session.setAttribute("loginName", userName);
             response.sendRedirect(request.getContextPath() + "/main.jsp");
         } else {
             response.sendRedirect(request.getContextPath() + "/editMember.jsp?msg=fail");
