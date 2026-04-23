@@ -21,11 +21,11 @@ public class JoinController extends HttpServlet {
         memberService = new MemberServiceImpl();
     }
 
-    /* /join 주소 요청 -> joinForm.jsp 이동 */
+    /* /join 주소 요청 -> join.jsp 이동 */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect(request.getContextPath() + "/joinForm.jsp");
+        response.sendRedirect(request.getContextPath() + "/join.jsp");
     }
 
     /* 회원가입 */
@@ -35,7 +35,7 @@ public class JoinController extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
 
-        /* joinForm.jsp에서 입력한 값 꺼내기 */
+        /* join.jsp에서 입력한 값 꺼내기 */
         String userName = request.getParameter("userName");
         String userId = request.getParameter("userId");
         String userPw = request.getParameter("userPw");
@@ -54,11 +54,11 @@ public class JoinController extends HttpServlet {
         int result = memberService.joinMember(member);
 
         if (result == -1) {
-            response.sendRedirect(request.getContextPath() + "/joinForm.jsp?msg=duplicate"); /* 중복 ID */
+            response.sendRedirect(request.getContextPath() + "/join.jsp?msg=duplicate"); /* 중복 ID */
         } else if (result > 0) {
             response.sendRedirect(request.getContextPath() + "/login.jsp"); /* 가입성공 */
         } else {
-            response.sendRedirect(request.getContextPath() + "/joinForm.jsp?msg=fail"); /* 가입실패 */
+            response.sendRedirect(request.getContextPath() + "/join.jsp?msg=fail"); /* 가입실패 */
         }
     }
 }
