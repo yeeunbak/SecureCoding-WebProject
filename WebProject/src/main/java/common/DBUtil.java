@@ -6,19 +6,40 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import java.util.Properties;
+import java.io.InputStream;
+
 public class DBUtil {
 
-    private static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
-    private static final String URL = "jdbc:oracle:thin:@localhost:1521:XE";
-    private static final String USER = "webuser";
-    private static final String PASSWORD = "1234";
+    private static String DRIVER;
+    private static String URL;
+    private static String USER;
+    private static String PASSWORD;
 
     static {
         try {
+            Properties prop = new Properties();
+
+            InputStream input = DBUtil.class
+                    .getClassLoader()
+                    .getResourceAsStream("db.properties");
+
+            if (input == null) {
+                throw new RuntimeException("db.properties 파일을 찾을 수 없습니다.");
+            }
+
+            prop.load(input);
+
+            DRIVER = prop.getProperty("driver");
+            URL = prop.getProperty("url");
+            USER = prop.getProperty("username");
+            PASSWORD = prop.getProperty("password");
+
             Class.forName(DRIVER);
-            System.out.println("Oracle JDBC Driver 로딩 성공");
-        } catch (ClassNotFoundException e) {
-            System.out.println("Oracle JDBC Driver 로딩 실패");
+
+            System.out.println("DB 설정 로딩 성공");
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
