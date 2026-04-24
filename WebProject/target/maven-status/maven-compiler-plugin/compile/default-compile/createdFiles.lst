@@ -1,0 +1,10 @@
+member/JoinController.class
+common/DBUtil.class
+member/MemberService.class
+member/MemberServiceImpl.class
+member/MemberDAO.class
+member/LogoutController.class
+member/UpdateMemberController.class
+member/MemberDTO.class
+member/CheckDuplicateController.class
+member/LoginController.class
