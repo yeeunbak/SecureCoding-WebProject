@@ -1,2 +1,2 @@
 # SecureCoding-WebProject
-시큐어 코딩 실습용 웹 프로젝트
+SW소스코드 진단 실습용 웹 프로젝트
