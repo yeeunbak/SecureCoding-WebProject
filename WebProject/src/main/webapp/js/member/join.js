@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(result => {
                 const trimmed = result.trim();
 
-                if (trimmed === "duplicate") {
+                if (trimmed == "duplicate") {
                     checkedUserId = "";
                     setMessage(userIdMsg, "중복된 아이디입니다.", false);
                 } else {
@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(result => {
                 const trimmed = result.trim();
 
-                if (trimmed === "duplicate") {
+                if (trimmed == "duplicate") {
                     checkedUserEmail = "";
                     setMessage(userEmailMsg, "중복된 이메일입니다.", false);
                 } else {
@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        if (checkedUserEmail !== currentUserEmail) {
+        if (checkedUserEmail != currentUserEmail) {
             e.preventDefault();
             setMessage(userEmailMsg, "이메일 중복 확인을 해주세요.", false);
             return;
@@ -112,11 +112,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const params = new URLSearchParams(window.location.search);
     const msg = params.get("msg");
 
-    if (msg === "duplicateId") {
+    if (msg == "duplicateId") {
         setMessage(userIdMsg, "중복된 아이디입니다.", false);
-    } else if (msg === "duplicateEmail") {
+    } else if (msg == "duplicateEmail") {
         setMessage(userEmailMsg, "중복된 이메일입니다.", false);
-    } else if (msg === "fail") {
+    } else if (msg == "fail") {
         joinFormMsg.textContent = "회원가입에 실패했습니다.";
     }
 });
