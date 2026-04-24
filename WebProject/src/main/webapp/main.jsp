@@ -6,7 +6,7 @@
 
     /* 로그아웃 상태 -> login.jsp로 이동 */
     if (loginId == null) {
-        response.sendRedirect(request.getContextPath() + "/login.jsp");
+        response.sendRedirect(request.getContextPath() + "/member/login.jsp");
         return;
     }
 %>

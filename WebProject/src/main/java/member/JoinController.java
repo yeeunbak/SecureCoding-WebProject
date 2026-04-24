@@ -25,7 +25,7 @@ public class JoinController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect(request.getContextPath() + "/join.jsp");
+        response.sendRedirect(request.getContextPath() + "/member/join.jsp");
     }
 
     /* 회원가입 */
@@ -54,13 +54,13 @@ public class JoinController extends HttpServlet {
         int result = memberService.joinMember(member);
 
         if (result == -1) {
-            response.sendRedirect(request.getContextPath() + "/join.jsp?msg=duplicate");  		// 중복 ID
+        	response.sendRedirect(request.getContextPath() + "/member/join.jsp?msg=duplicateId");  		// 중복 ID
         } else if (result == -2) {
-            response.sendRedirect(request.getContextPath() + "/join.jsp?msg=duplicateEmail"); 	// 중복 email
+            response.sendRedirect(request.getContextPath() + "/member/join.jsp?msg=duplicateEmail"); 	// 중복 email
         } else if (result > 0) {
-            response.sendRedirect(request.getContextPath() + "/login.jsp"); 		 	  		// 가입 성공
+            response.sendRedirect(request.getContextPath() + "/member/login.jsp"); 		 	  		// 가입 성공
         } else {
-            response.sendRedirect(request.getContextPath() + "/join.jsp?msg=fail");  	  		// 가입 실패
+            response.sendRedirect(request.getContextPath() + "/member/join.jsp?msg=fail");  	  		// 가입 실패
         }
     }
 }

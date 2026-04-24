@@ -24,7 +24,7 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect(request.getContextPath() + "/login.jsp");
+        response.sendRedirect(request.getContextPath() + "/member/login.jsp");
     }
 
     /* login */
@@ -50,7 +50,7 @@ public class LoginController extends HttpServlet {
 
             response.sendRedirect(request.getContextPath() + "/main.jsp"); 			  // 로그인 성공 -> 메인화면
         } else {
-            response.sendRedirect(request.getContextPath() + "/login.jsp?msg=fail");  // 로그인 실패
+            response.sendRedirect(request.getContextPath() + "/member/login.jsp?msg=fail");  // 로그인 실패
         }
     }
 }

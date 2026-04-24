@@ -26,6 +26,6 @@ public class LogoutController extends HttpServlet {
             session.invalidate();
         }
 
-        response.sendRedirect(request.getContextPath() + "/login.jsp?msg=logout");
+        response.sendRedirect(request.getContextPath() + "/member/login.jsp?msg=logout");
     }
 }

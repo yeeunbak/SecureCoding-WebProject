@@ -31,7 +31,7 @@ public class UpdateMemberController extends HttpServlet {
         
         /* 로그아웃 상태 -> login.jsp */
         if (session == null || session.getAttribute("loginId") == null) {
-            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            response.sendRedirect(request.getContextPath() + "/member/login.jsp");
             return;
         }
 
@@ -39,7 +39,7 @@ public class UpdateMemberController extends HttpServlet {
         MemberDTO member = memberService.getMemberById(userId); // DB에서 회원정보 조회
         
         request.setAttribute("member", member); // JSP에서 쓸 수 있게 전달
-        request.getRequestDispatcher("/editMember.jsp").forward(request, response); // editMember.jsp로 데이터 전달
+        request.getRequestDispatcher("/member/editMember.jsp").forward(request, response); // editMember.jsp로 데이터 전달
     }
 
     /* 수정 처리 */
@@ -52,7 +52,7 @@ public class UpdateMemberController extends HttpServlet {
         HttpSession session = request.getSession(false);
 
         if (session == null || session.getAttribute("loginId") == null) {
-            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            response.sendRedirect(request.getContextPath() + "/member/login.jsp");
             return;
         }
         
@@ -76,7 +76,7 @@ public class UpdateMemberController extends HttpServlet {
             session.setAttribute("loginName", userName);
             response.sendRedirect(request.getContextPath() + "/main.jsp");
         } else {
-            response.sendRedirect(request.getContextPath() + "/editMember.jsp?msg=fail");
+            response.sendRedirect(request.getContextPath() + "/member/editMember.jsp?msg=fail");
         }
     }
 }
