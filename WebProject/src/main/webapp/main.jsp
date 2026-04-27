@@ -15,6 +15,7 @@
     <h2>메인 페이지</h2>
     <p><%= loginName %>님, 환영합니다.</p>
     <div class="btn-area">
+    	<input type="button" value="게시판" onclick="location.href='<%=request.getContextPath()%>/board/boardList.jsp'">
     	<input type="button" value="회원정보 수정" onclick="location.href='<%=request.getContextPath()%>/editMember'">
         <input type="button" value="로그아웃" onclick="location.href='<%=request.getContextPath()%>/logout'">
     </div>
