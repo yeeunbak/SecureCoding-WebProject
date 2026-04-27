@@ -6,9 +6,10 @@
 <%
     request.setCharacterEncoding("UTF-8");
 
-    String searchType = request.getParameter("searchType");
-    String keyword = request.getParameter("keyword");
+    String searchType = request.getParameter("searchType");	// 검색 조건
+    String keyword = request.getParameter("keyword");		// 검색어
 
+    // 기본 검색 기준 -> 제목
     if (searchType == null) {
         searchType = "title";
     }
@@ -21,18 +22,20 @@
     PreparedStatement pstmt = null;
     ResultSet rs = null;
 
+    // 검색
     String sql =
         "SELECT BOARD_ID, TITLE, WRITER_ID, IS_SECRET, VIEW_COUNT, " +
         "       TO_CHAR(REG_DATE, 'YYYY-MM-DD') AS REG_DATE " +
         "FROM TB_BOARD ";
 
+    // 검색 조건 추가
     if (!keyword.trim().equals("")) {
         if ("content".equals(searchType)) {
-            sql += "WHERE CONTENT LIKE ? ";
+            sql += "WHERE CONTENT LIKE ? ";				// 내용 검색
         } else if ("writer".equals(searchType)) {
-            sql += "WHERE WRITER_ID LIKE ? ";
+            sql += "WHERE WRITER_ID LIKE ? ";			// 작성자 검색
         } else {
-            sql += "WHERE TITLE LIKE ? ";
+            sql += "WHERE TITLE LIKE ? ";				// 제목 검색
         }
     }
 
@@ -83,13 +86,14 @@
         pstmt = conn.prepareStatement(sql);
 
         if (!keyword.trim().equals("")) {
-            pstmt.setString(1, "%" + keyword + "%");
+            pstmt.setString(1, "%" + keyword + "%");	// LIKE '%keyword%'
         }
 
         rs = pstmt.executeQuery();
 
         boolean hasData = false;
 
+        // 목록 출력
         while (rs.next()) {
             hasData = true;
 
@@ -108,6 +112,7 @@
                 <span class="secret">[비밀글]</span>
             <% } %>
 
+			<!-- 상세 페이지 -->
             <a href="boardDetail.jsp?boardId=<%= boardId %>">
                 <%= title %>
             </a>
@@ -120,8 +125,7 @@
 
 <%
         }
-
-        if (!hasData) {
+        if (!hasData) {  // 게시글 없을 때
 %>
     <tr>
         <td colspan="6">등록된 게시글이 없습니다.</td>
