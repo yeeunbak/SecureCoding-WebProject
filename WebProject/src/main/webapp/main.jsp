@@ -1,15 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-    String loginId = (String) session.getAttribute("loginId");      // 로그인 여부 확인용
-    String loginName = (String) session.getAttribute("loginName");  // 화면에 이름 출력용
+    
+<%@ include file="/common/loginCheck.jsp" %>
 
-    /* 로그아웃 상태 -> login.jsp로 이동 */
-    if (loginId == null) {
-        response.sendRedirect(request.getContextPath() + "/member/login.jsp");
-        return;
-    }
-%>
 <!DOCTYPE html>
 <html>
 <head>
