@@ -120,3 +120,30 @@ select {
     padding: 4px 8px;
     font-size: 12px;
 }
+
+.comment-btn-area {
+    text-align: right;
+    margin-top: 8px;
+}
+
+.comment-btn-area button,
+.comment-delete-form input[type="submit"] {
+    padding: 4px 8px;
+    font-size: 12px;
+}
+
+.comment-delete-form {
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.comment-edit-form {
+    margin-top: 10px;
+}
+
+.comment-edit-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    resize: vertical;
+}

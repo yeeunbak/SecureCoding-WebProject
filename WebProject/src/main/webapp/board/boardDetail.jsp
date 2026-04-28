@@ -193,11 +193,29 @@
         </div>
         
 		<% if (loginId.equals(commentWriterId)) { %>
-        	<form action="<%= request.getContextPath() %>/board/comment/delete" method="post" class="comment-delete-form">
-            	<input type="hidden" name="boardId" value="<%= boardId %>">
-            	<input type="hidden" name="commentId" value="<%= commentId %>">
-            	<input type="submit" value="삭제" onclick="return confirm('댓글을 삭제하시겠습니까?');">
-        	</form>
+            <div class="comment-btn-area">
+                <button type="button" onclick="toggleEdit(<%= commentId %>)">수정</button>
+
+                <form action="<%= request.getContextPath() %>/board/comment/delete" method="post" class="comment-delete-form">
+                    <input type="hidden" name="boardId" value="<%= boardId %>">
+                    <input type="hidden" name="commentId" value="<%= commentId %>">
+                    <input type="submit" value="삭제" onclick="return confirm('댓글을 삭제하시겠습니까?');">
+                </form>
+            </div>
+
+            <div id="edit-form-<%= commentId %>" class="comment-edit-form" style="display:none;">
+                <form action="<%= request.getContextPath() %>/board/comment/update" method="post">
+                    <input type="hidden" name="boardId" value="<%= boardId %>">
+                    <input type="hidden" name="commentId" value="<%= commentId %>">
+
+                    <textarea name="content" rows="3" required><%= commentContent %></textarea>
+
+                    <div class="btn-area">
+                        <input type="submit" value="수정 완료">
+                        <button type="button" onclick="toggleEdit(<%= commentId %>)">취소</button>
+                    </div>
+                </form>
+            </div>
     	<% } %>
     </div>
 <%
@@ -247,6 +265,18 @@
         </form>
     <% } %>
 </div>
+
+<script>
+function toggleEdit(commentId) {
+    const editForm = document.getElementById("edit-form-" + commentId);
+
+    if (editForm.style.display == "none") {
+        editForm.style.display = "block";
+    } else {
+        editForm.style.display = "none";
+    }
+}
+</script>
 
 </body>
 </html>
