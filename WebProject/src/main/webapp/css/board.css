@@ -62,3 +62,51 @@ select {
     line-height: 1.6;
     vertical-align: top;
 }
+
+.comment-list {
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+}
+
+.comment-item {
+    padding: 15px 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.comment-writer {
+    font-weight: bold;
+}
+
+.comment-date {
+    color: #777;
+    font-size: 13px;
+}
+
+.comment-content {
+    text-align: left;
+    line-height: 1.6;
+    white-space: normal;
+}
+
+.no-comment {
+    padding: 20px;
+    text-align: center;
+    color: #777;
+}
+
+.comment-write {
+    margin-top: 20px;
+}
+
+.comment-write textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    resize: vertical;
+}

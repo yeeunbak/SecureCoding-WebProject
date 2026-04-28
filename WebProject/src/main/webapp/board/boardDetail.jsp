@@ -70,8 +70,11 @@
         }
 
         rs.close();
+        rs = null;
+        
         pstmt.close();
-
+        pstmt = null;
+        
         // 조회수 증가
         String updateSql = "UPDATE TB_BOARD SET VIEW_COUNT = VIEW_COUNT + 1 WHERE BOARD_ID = ?"; // DB에서 증가
         pstmt = conn.prepareStatement(updateSql);
@@ -87,7 +90,6 @@
     } finally {
         if (rs != null) try { rs.close(); } catch (Exception e) {}
         if (pstmt != null) try { pstmt.close(); } catch (Exception e) {}
-        if (conn != null) try { conn.close(); } catch (Exception e) {}
     }
 
     	// 현재 로그인한 사용자 == 작성자?
@@ -147,13 +149,89 @@
     </tr>
 </table>
 
+
+<h2>댓글</h2>
+
+<div class="comment-list">
+<%
+	// DB 조회 준비
+    PreparedStatement commentPstmt = null;
+    ResultSet commentRs = null;
+
+    try {
+    		// 특정 게시글의 댓글만 가져옴
+        String commentSql =
+            "SELECT COMMENT_ID, CONTENT, WRITER_ID, " +
+            "       TO_CHAR(REG_DATE, 'YYYY-MM-DD HH24:MI') AS REG_DATE " +
+            "FROM TB_COMMENT " +
+            "WHERE BOARD_ID = ? " +
+            "ORDER BY COMMENT_ID ASC"; // 오래된 댓글 -> 최신 댓글 순
+
+        commentPstmt = conn.prepareStatement(commentSql);
+        commentPstmt.setInt(1, boardId); 			// 현재 보고 있는 게시글 ID 기준 댓글 조회
+        commentRs = commentPstmt.executeQuery(); 	// DB에서 댓글 목록 가져오기
+
+        boolean hasComment = false; // 댓글 존재 여부 체크
+
+        while (commentRs.next()) {	// 댓글 반복 출력
+            hasComment = true;
+
+        		// 댓글 데이터 꺼내기
+            String commentWriterId = commentRs.getString("WRITER_ID");
+            String commentContent = commentRs.getString("CONTENT");
+            String commentRegDate = commentRs.getString("REG_DATE");
+%>
+    <div class="comment-item">
+        <div class="comment-header">
+            <span class="comment-writer"><%= commentWriterId %></span>
+            <span class="comment-date"><%= commentRegDate %></span>
+        </div>
+
+        <div class="comment-content">
+            <%= commentContent.replace("\n", "<br>") %>
+        </div>
+    </div>
+<%
+        }
+
+        if (!hasComment) {
+%>
+    <div class="no-comment">등록된 댓글이 없습니다.</div>
+<%
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+%>
+    <div class="no-comment">댓글 조회 중 오류가 발생했습니다.</div>
+<%
+    } finally { // DB 연결 종료
+        if (commentRs != null) try { commentRs.close(); } catch (Exception e) {}
+        if (commentPstmt != null) try { commentPstmt.close(); } catch (Exception e) {}
+        if (conn != null) try { conn.close(); } catch (Exception e) {}
+    }
+%>
+</div>
+
+<div class="comment-write">
+    <form action="<%= request.getContextPath() %>/board/comment/write" method="post">
+        <input type="hidden" name="boardId" value="<%= boardId %>">
+
+        <textarea name="content" rows="4" placeholder="댓글을 입력하세요." required></textarea>
+
+        <div class="btn-area">
+            <input type="submit" value="댓글 등록">
+        </div>
+    </form>
+</div>
+
 <div class="btn-area">
     <input type="button" value="목록"
         onclick="location.href='<%= request.getContextPath() %>/board/boardList.jsp'">
 
 	<!-- 해당 게시글의 작성자에게만 보이는 버튼 -->
     <% if (isWriter) { %>
-        <input type="button" value="수정"onclick="location.href='<%= request.getContextPath() %>/board/boardForm.jsp?boardId=<%= boardId %>'">
+        <input type="button" value="수정" onclick="location.href='<%= request.getContextPath() %>/board/boardForm.jsp?boardId=<%= boardId %>'">
         <form action="<%= request.getContextPath() %>/board/delete" method="post" style="display:inline;">
             <input type="hidden" name="boardId" value="<%= boardId %>">
             <input type="submit" value="삭제" onclick="return confirm('정말 삭제하시겠습니까?');">
