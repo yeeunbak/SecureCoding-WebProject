@@ -110,3 +110,13 @@ select {
     padding: 10px;
     resize: vertical;
 }
+
+.comment-delete-form {
+    text-align: right;
+    margin-top: 8px;
+}
+
+.comment-delete-form input[type="submit"] {
+    padding: 4px 8px;
+    font-size: 12px;
+}

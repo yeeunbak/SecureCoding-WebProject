@@ -177,6 +177,7 @@
             hasComment = true;
 
         		// 댓글 데이터 꺼내기
+        	int commentId = commentRs.getInt("COMMENT_ID");
             String commentWriterId = commentRs.getString("WRITER_ID");
             String commentContent = commentRs.getString("CONTENT");
             String commentRegDate = commentRs.getString("REG_DATE");
@@ -190,6 +191,14 @@
         <div class="comment-content">
             <%= commentContent.replace("\n", "<br>") %>
         </div>
+        
+		<% if (loginId.equals(commentWriterId)) { %>
+        	<form action="<%= request.getContextPath() %>/board/comment/delete" method="post" class="comment-delete-form">
+            	<input type="hidden" name="boardId" value="<%= boardId %>">
+            	<input type="hidden" name="commentId" value="<%= commentId %>">
+            	<input type="submit" value="삭제" onclick="return confirm('댓글을 삭제하시겠습니까?');">
+        	</form>
+    	<% } %>
     </div>
 <%
         }
