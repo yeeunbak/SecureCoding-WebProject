@@ -147,3 +147,17 @@ select {
     padding: 10px;
     resize: vertical;
 }
+
+.file-list {
+    margin-bottom: 10px;
+}
+
+.file-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.file-item span {
+    font-size: 14px;
+}

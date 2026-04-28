@@ -6,7 +6,7 @@
 <%
     request.setCharacterEncoding("UTF-8");
 
-	// boardId 검증
+    // boardId 검증
     String boardIdParam = request.getParameter("boardId");
 
     if (boardIdParam == null || boardIdParam.trim().equals("")) {
@@ -22,6 +22,7 @@
     PreparedStatement pstmt = null;
     ResultSet rs = null;
 
+    // 게시글 정보를 화면에 출력하기 위한 변수
     String title = "";
     String content = "";
     String writerId = "";
@@ -33,7 +34,7 @@
     try {
         conn = DBUtil.getConnection();
 
-        	// 해당 게시글 1개 조회
+        // 해당 게시글 1개 조회
         String selectSql =
             "SELECT BOARD_ID, TITLE, CONTENT, WRITER_ID, IS_SECRET, VIEW_COUNT, " +
             "       TO_CHAR(REG_DATE, 'YYYY-MM-DD HH24:MI') AS REG_DATE, " +
@@ -60,7 +61,8 @@
             return;
         }
 
-        	// 비밀글 접근 제한
+        // 비밀글 접근 제한
+        // 비밀글이면서 로그인 사용자가 작성자가 아니면 접근 차단
         if ("Y".equals(isSecret) && !loginId.equals(writerId)) {
             out.println("<script>");
             out.println("alert('비밀글은 작성자만 볼 수 있습니다.');");
@@ -76,12 +78,13 @@
         pstmt = null;
         
         // 조회수 증가
-        String updateSql = "UPDATE TB_BOARD SET VIEW_COUNT = VIEW_COUNT + 1 WHERE BOARD_ID = ?"; // DB에서 증가
+        // 비밀글 권한 확인 후 조회수를 올리기 때문에 권한 없는 접근은 조회수에 반영되지 않음
+        String updateSql = "UPDATE TB_BOARD SET VIEW_COUNT = VIEW_COUNT + 1 WHERE BOARD_ID = ?";
         pstmt = conn.prepareStatement(updateSql);
         pstmt.setInt(1, boardId);
         pstmt.executeUpdate();
 
-        viewCount++; // 화면에서도 증가
+        viewCount++; // 화면에서도 증가된 조회수로 표시
 
     } catch (Exception e) {
         e.printStackTrace();
@@ -92,7 +95,8 @@
         if (pstmt != null) try { pstmt.close(); } catch (Exception e) {}
     }
 
-    	// 현재 로그인한 사용자 == 작성자?
+    // 현재 로그인한 사용자 == 작성자?
+    // 작성자인 경우에만 게시글 수정/삭제 버튼을 보여주기 위해 사용
     boolean isWriter = loginId.equals(writerId);
 %>
 
@@ -147,19 +151,76 @@
             <%= content.replace("\n", "<br>") %>
         </td>
     </tr>
-</table>
+    
+    <tr>
+        <th>첨부파일</th>
+        <td class="content">
+<%
+    // 첨부파일 조회 준비
+    PreparedStatement filePstmt = null;
+    ResultSet fileRs = null;
 
+    try {
+        // 현재 게시글에 등록된 첨부파일 목록 조회
+        String fileSql =
+            "SELECT FILE_ID, ORIGIN_NAME, FILE_SIZE " +
+            "FROM TB_BOARD_FILE " +
+            "WHERE BOARD_ID = ? " +
+            "ORDER BY FILE_ID ASC";
+
+        filePstmt = conn.prepareStatement(fileSql);
+        filePstmt.setInt(1, boardId);
+        fileRs = filePstmt.executeQuery();
+
+        boolean hasFile = false;
+
+        while (fileRs.next()) {
+            hasFile = true;
+
+            int fileId = fileRs.getInt("FILE_ID");
+            String originName = fileRs.getString("ORIGIN_NAME");
+            long fileSize = fileRs.getLong("FILE_SIZE");
+%>
+            <div>
+                <!-- 파일명을 클릭하면 다운로드 컨트롤러로 이동 -->
+                <a href="<%= request.getContextPath() %>/board/file/download?fileId=<%= fileId %>">
+                    <%= originName %>
+                </a>
+                (<%= fileSize %> bytes)
+            </div>
+<%
+        }
+
+        if (!hasFile) {
+%>
+            첨부파일이 없습니다.
+<%
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+%>
+            첨부파일 조회 중 오류가 발생했습니다.
+<%
+    } finally {
+        if (fileRs != null) try { fileRs.close(); } catch (Exception e) {}
+        if (filePstmt != null) try { filePstmt.close(); } catch (Exception e) {}
+    }
+%>
+        </td>
+    </tr>
+</table>
 
 <h2>댓글</h2>
 
 <div class="comment-list">
 <%
-	// DB 조회 준비
+    // 댓글 조회 준비
     PreparedStatement commentPstmt = null;
     ResultSet commentRs = null;
 
     try {
-    		// 특정 게시글의 댓글만 가져옴
+        // 특정 게시글의 댓글만 가져옴
         String commentSql =
             "SELECT COMMENT_ID, CONTENT, WRITER_ID, " +
             "       TO_CHAR(REG_DATE, 'YYYY-MM-DD HH24:MI') AS REG_DATE " +
@@ -168,16 +229,16 @@
             "ORDER BY COMMENT_ID ASC"; // 오래된 댓글 -> 최신 댓글 순
 
         commentPstmt = conn.prepareStatement(commentSql);
-        commentPstmt.setInt(1, boardId); 			// 현재 보고 있는 게시글 ID 기준 댓글 조회
-        commentRs = commentPstmt.executeQuery(); 	// DB에서 댓글 목록 가져오기
+        commentPstmt.setInt(1, boardId);           // 현재 보고 있는 게시글 ID 기준 댓글 조회
+        commentRs = commentPstmt.executeQuery();   // DB에서 댓글 목록 가져오기
 
         boolean hasComment = false; // 댓글 존재 여부 체크
 
-        while (commentRs.next()) {	// 댓글 반복 출력
+        while (commentRs.next()) {  // 댓글 반복 출력
             hasComment = true;
 
-        		// 댓글 데이터 꺼내기
-        	int commentId = commentRs.getInt("COMMENT_ID");
+            // 댓글 데이터 꺼내기
+            int commentId = commentRs.getInt("COMMENT_ID");
             String commentWriterId = commentRs.getString("WRITER_ID");
             String commentContent = commentRs.getString("CONTENT");
             String commentRegDate = commentRs.getString("REG_DATE");
@@ -192,7 +253,8 @@
             <%= commentContent.replace("\n", "<br>") %>
         </div>
         
-		<% if (loginId.equals(commentWriterId)) { %>
+        <% if (loginId.equals(commentWriterId)) { %>
+            <!-- 본인 댓글에만 수정/삭제 버튼 표시 -->
             <div class="comment-btn-area">
                 <button type="button" onclick="toggleEdit(<%= commentId %>)">수정</button>
 
@@ -203,6 +265,7 @@
                 </form>
             </div>
 
+            <!-- 댓글 수정 폼: 처음에는 숨겨두고 수정 버튼 클릭 시 표시 -->
             <div id="edit-form-<%= commentId %>" class="comment-edit-form" style="display:none;">
                 <form action="<%= request.getContextPath() %>/board/comment/update" method="post">
                     <input type="hidden" name="boardId" value="<%= boardId %>">
@@ -216,7 +279,7 @@
                     </div>
                 </form>
             </div>
-    	<% } %>
+        <% } %>
     </div>
 <%
         }
@@ -241,6 +304,7 @@
 </div>
 
 <div class="comment-write">
+    <!-- 댓글 작성 form -->
     <form action="<%= request.getContextPath() %>/board/comment/write" method="post">
         <input type="hidden" name="boardId" value="<%= boardId %>">
 
@@ -256,9 +320,10 @@
     <input type="button" value="목록"
         onclick="location.href='<%= request.getContextPath() %>/board/boardList.jsp'">
 
-	<!-- 해당 게시글의 작성자에게만 보이는 버튼 -->
+    <!-- 해당 게시글의 작성자에게만 보이는 버튼 -->
     <% if (isWriter) { %>
         <input type="button" value="수정" onclick="location.href='<%= request.getContextPath() %>/board/boardForm.jsp?boardId=<%= boardId %>'">
+
         <form action="<%= request.getContextPath() %>/board/delete" method="post" style="display:inline;">
             <input type="hidden" name="boardId" value="<%= boardId %>">
             <input type="submit" value="삭제" onclick="return confirm('정말 삭제하시겠습니까?');">
@@ -267,6 +332,7 @@
 </div>
 
 <script>
+// 댓글 수정 폼 열기/닫기
 function toggleEdit(commentId) {
     const editForm = document.getElementById("edit-form-" + commentId);
 
