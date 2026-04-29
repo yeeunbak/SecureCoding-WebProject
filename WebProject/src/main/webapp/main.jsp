@@ -17,6 +17,9 @@
     <div class="btn-area">
     	<input type="button" value="게시판" onclick="location.href='<%=request.getContextPath()%>/board/boardList.jsp'">
     	<input type="button" value="회원정보 수정" onclick="location.href='<%=request.getContextPath()%>/editMember'">
+    	<% if ("ADMIN".equals(loginRole)) { %>
+        	<input type="button" value="관리자 페이지" onclick="location.href='<%=request.getContextPath()%>/admin/adminMain.jsp'">
+    	<% } %>
         <input type="button" value="로그아웃" onclick="location.href='<%=request.getContextPath()%>/logout'">
     </div>
 </div>
