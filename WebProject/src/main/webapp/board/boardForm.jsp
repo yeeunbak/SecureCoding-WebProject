@@ -62,6 +62,14 @@
 
 <h2><%= isEdit ? "게시글 수정" : "게시글 작성" %></h2>
 
+<%
+    String returnUrl = request.getParameter("returnUrl");
+
+    if (returnUrl == null) {
+        returnUrl = "";
+    }
+%>
+
 <!-- 게시글 작성/수정 form -->
 <form action="<%= request.getContextPath() %><%= isEdit ? "/board/update" : "/board/write" %>" method="post" enctype="multipart/form-data"> <!-- 파일 업로드 필수 -->
 
@@ -162,11 +170,9 @@
 
     <div class="btn-area">
         <input type="submit" value="<%= isEdit ? "수정하기" : "작성하기" %>">
-
-        <input type="button" value="취소"
-            onclick="location.href='<%=request.getContextPath()%>/board/boardList.jsp'">
+        <input type="button" value="취소" onclick="location.href='<%=request.getContextPath()%><%= "admin".equals(returnUrl) ? "/admin/adminboardList.jsp" : "/board/boardList.jsp" %>'">
     </div>
-
+    
 </form>
 
 <!-- 파일 삭제용 POST 요청 -->

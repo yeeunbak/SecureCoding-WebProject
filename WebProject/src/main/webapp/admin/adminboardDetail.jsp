@@ -1,7 +1,7 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="common.DBUtil" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ include file="/common/loginCheck.jsp" %>
+<%@ include file="/common/adminCheck.jsp" %>
 
 <%
     request.setCharacterEncoding("UTF-8");
@@ -10,7 +10,7 @@
     String boardIdParam = request.getParameter("boardId");
 
     if (boardIdParam == null || boardIdParam.trim().equals("")) {
-        response.sendRedirect(request.getContextPath() + "/board/boardList.jsp");
+        response.sendRedirect(request.getContextPath() + "/admin/adminboardList.jsp");
         return;
     }
 
@@ -57,16 +57,7 @@
             regDate = rs.getString("REG_DATE");
             updDate = rs.getString("UPD_DATE");
         } else {
-            response.sendRedirect(request.getContextPath() + "/board/boardList.jsp");
-            return;
-        }
-
-        // 비밀글 접근 제한 -> 작성자, 관리자만 볼 수 있음
-        if ("Y".equals(isSecret) && !loginId.equals(writerId) && !"ADMIN".equals(loginRole)) {
-            out.println("<script>");
-            out.println("alert('비밀글은 작성자만 볼 수 있습니다.');");
-            out.println("location.href='" + request.getContextPath() + "/board/boardList.jsp';");
-            out.println("</script>");
+            response.sendRedirect(request.getContextPath() + "/admin/adminboardList.jsp");
             return;
         }
 
@@ -87,7 +78,7 @@
 
     } catch (Exception e) {
         e.printStackTrace();
-        response.sendRedirect(request.getContextPath() + "/board/boardList.jsp");
+        response.sendRedirect(request.getContextPath() + "/admin/adminboardList.jsp");
         return;
     } finally {
         if (rs != null) try { rs.close(); } catch (Exception e) {}
@@ -103,13 +94,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시글 상세</title>
+<title>게시글 관리 상세</title>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/board.css">
 </head>
 
 <body>
 
-<h1>게시글 상세</h1>
+<h1>게시글 관리 상세</h1>
 
 <table>
     <tr>
@@ -317,17 +308,18 @@
 
 <div class="btn-area">
     <input type="button" value="목록"
-        onclick="location.href='<%= request.getContextPath() %>/board/boardList.jsp'">
+        onclick="location.href='<%= request.getContextPath() %>/admin/adminboardList.jsp'">
 
-    <!-- 해당 게시글의 작성자에게만 보이는 버튼 -->
+    <!-- 관리자 본인이 작성한 게시글일 때만 수정 버튼 표시 -->
     <% if (isWriter) { %>
         <input type="button" value="수정" onclick="location.href='<%= request.getContextPath() %>/board/boardForm.jsp?boardId=<%= boardId %>'">
+	<% } %>
+	
+    <form action="<%= request.getContextPath() %>/admin/board/delete" method="post" style="display:inline;">
+        <input type="hidden" name="boardId" value="<%= boardId %>">
+        <input type="submit" value="삭제" onclick="return confirm('게시글을 삭제하시겠습니까?');">
+    </form>
 
-        <form action="<%= request.getContextPath() %>/board/delete" method="post" style="display:inline;">
-            <input type="hidden" name="boardId" value="<%= boardId %>">
-            <input type="submit" value="삭제" onclick="return confirm('정말 삭제하시겠습니까?');">
-        </form>
-    <% } %>
 </div>
 
 <script>
