@@ -6,7 +6,7 @@ public class BoardFileDTO {
     private int fileId;
     /* 게시글 ID */
     private int boardId;
-    /* ?? */
+    /* 원본 파일명 */
     private String originName;
     /* 파일 크기 */
     private long fileSize;
