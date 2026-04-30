@@ -40,12 +40,7 @@ th {
 
 .btn-area {
     text-align: center;
-    margin-top: 20px;
-}
-
-button, input[type="submit"] {
-    padding: 6px 12px;
-    cursor: pointer;
+    margin-top: 25px;
 }
 
 input[type="text"] {

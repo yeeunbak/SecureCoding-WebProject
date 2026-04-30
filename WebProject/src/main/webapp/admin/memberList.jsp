@@ -20,12 +20,12 @@
 <head>
 <meta charset="UTF-8">
 <title>사용자 관리</title>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/common.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/board.css">
 </head>
 
 <body>
 
-<div class="container">
+<div class="board-container">
     <h2>사용자 관리</h2>
 
     <table>
