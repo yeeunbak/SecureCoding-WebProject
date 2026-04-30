@@ -34,4 +34,19 @@ public class BoardServiceImpl implements BoardService {
     public List<CommentDTO> selectCommentList(int boardId) {
         return boardDAO.selectCommentList(boardId);
     }
+
+    @Override
+    public int insertBoard(BoardDTO board, List<BoardFileDTO> fileList) {
+        return boardDAO.insertBoard(board, fileList);
+    }
+
+    @Override
+    public int updateBoard(BoardDTO board, List<BoardFileDTO> fileList) {
+        return boardDAO.updateBoard(board, fileList);
+    }
+
+    @Override
+    public int deleteBoard(int boardId, String writerId) {
+        return boardDAO.deleteBoard(boardId, writerId);
+    }
 }

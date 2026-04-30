@@ -18,4 +18,13 @@ public interface BoardService {
 
     // 댓글 목록 조회
     List<CommentDTO> selectCommentList(int boardId);
+    
+    // 게시글 작성
+    int insertBoard(BoardDTO board, List<BoardFileDTO> fileList);
+    
+    // 게시글 수정
+    int updateBoard(BoardDTO board, List<BoardFileDTO> fileList);
+
+    // 게시글 삭제
+    int deleteBoard(int boardId, String writerId);
 }

@@ -67,6 +67,86 @@
     	ORDER BY FILE_ID ASC
 	</select>
 
+	<!-- 게시글 번호 생성 -->
+	<select id="selectNextBoardId" resultType="int">
+    	SELECT SEQ_TB_BOARD.NEXTVAL FROM DUAL
+	</select>
+
+	<!-- 게시글 작성 -->
+	<insert id="insertBoard" parameterType="board.BoardDTO">
+    	INSERT INTO TB_BOARD
+    	(
+        	BOARD_ID
+        	, TITLE
+        	, CONTENT
+        	, WRITER_ID
+        	, IS_SECRET
+    	)
+    	VALUES
+    	(
+        	#{boardId}
+        	, #{title}
+        	, #{content}
+        	, #{writerId}
+        	, #{isSecret}
+    	)
+	</insert>
+
+	<!-- 첨부파일 저장 -->
+	<insert id="insertBoardFile" parameterType="board.BoardFileDTO">
+    	INSERT INTO TB_BOARD_FILE
+    	(
+        	FILE_ID
+        	, BOARD_ID
+        	, ORIGIN_NAME
+        	, SAVE_NAME
+        	, SAVE_PATH
+        	, FILE_SIZE
+        	, FILE_EXT
+    	)
+    	VALUES
+    	(
+        	SEQ_TB_BOARD_FILE.NEXTVAL,
+        	#{boardId}
+        	, #{originName}
+        	, #{saveName}
+        	, #{savePath}
+        	, #{fileSize}
+        	, #{fileExt}
+    	)
+	</insert>
+
+	<!-- 게시글 수정 -->
+	<update id="updateBoard" parameterType="board.BoardDTO">
+    	UPDATE TB_BOARD
+    	SET
+        	TITLE = #{title}
+        	, CONTENT = #{content}
+        	, IS_SECRET = #{isSecret}
+        	, UPD_DATE = SYSDATE
+    	WHERE BOARD_ID = #{boardId}
+      	AND WRITER_ID = #{writerId}
+	</update>
+
+	<!-- 게시글 삭제 전 댓글 삭제 -->
+	<delete id="deleteCommentByBoardId" parameterType="int">
+    	DELETE FROM TB_COMMENT
+    	WHERE BOARD_ID = #{boardId}
+	</delete>
+
+	<!-- 게시글 삭제 전 첨부파일 DB 삭제 -->
+	<delete id="deleteFileByBoardId" parameterType="int">
+	    DELETE FROM TB_BOARD_FILE
+	    WHERE BOARD_ID = #{boardId}
+	</delete>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="deleteBoard" parameterType="map">
+	    DELETE FROM TB_BOARD
+	    WHERE BOARD_ID = #{boardId}
+	      AND WRITER_ID = #{writerId}
+	</delete>
+
 	<!-- 댓글 조회 -->
 	<select id="selectCommentList" parameterType="int" resultType="board.CommentDTO">
 	    SELECT
