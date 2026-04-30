@@ -60,7 +60,7 @@
                     <span class="secret">[비밀글]</span>
                 <% } %>
 
-                <a href="<%= request.getContextPath() %>/board/boardDetail.jsp?boardId=<%= board.getBoardId() %>">
+                <a href="<%= request.getContextPath() %>/board/detail?boardId=<%= board.getBoardId() %>">
                     <%= board.getTitle() %>
                 </a>
             </td>
