@@ -75,7 +75,7 @@
             <td>
     			<form action="<%=request.getContextPath()%>/admin/member/delete" method="post" style="display:inline;">
         			<input type="hidden" name="userId" value="<%= userId %>">
-        			<input type="submit" value="삭제" onclick="return confirm('정말 삭제하시겠습니까?');">
+        			<input type="submit" value="계정삭제" onclick="return confirm('정말 이 사용자를 삭제하겠습니까?');">
     			</form>
 			</td>
         </tr>
@@ -106,11 +106,7 @@
     </table>
 
     <div class="btn-area">
-        <input type="button" value="관리자 메인"
-            onclick="location.href='<%=request.getContextPath()%>/admin/adminMain.jsp'">
-
-        <input type="button" value="메인"
-            onclick="location.href='<%=request.getContextPath()%>/main.jsp'">
+        <input type="button" value="관리자 메인" onclick="location.href='<%=request.getContextPath()%>/admin/adminMain.jsp'">
     </div>
 </div>
 

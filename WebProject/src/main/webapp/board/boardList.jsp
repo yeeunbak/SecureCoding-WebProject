@@ -151,6 +151,7 @@
 
 <div class="btn-area">
     <button onclick="location.href='<%=request.getContextPath()%>/board/boardForm.jsp'">글쓰기</button>
+    <input type="button" value="메인" onclick="location.href='<%= request.getContextPath() %>/main.jsp'">
 </div>
 
 </body>

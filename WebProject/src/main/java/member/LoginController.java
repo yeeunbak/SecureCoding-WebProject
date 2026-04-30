@@ -48,7 +48,13 @@ public class LoginController extends HttpServlet {
             session.setAttribute("loginName", member.getUserName());
             session.setAttribute("loginRole", member.getUserRole());
 
-            response.sendRedirect(request.getContextPath() + "/main.jsp"); 			  // 로그인 성공 -> 메인화면
+            	// 로그인 성공 -> 메인화면
+            // ADMIN, USER 다른 메인화면으로 이동
+            if ("ADMIN".equals(member.getUserRole())) { 
+                response.sendRedirect(request.getContextPath() + "/admin/adminMain.jsp");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/main.jsp");
+            }
         } else {
             response.sendRedirect(request.getContextPath() + "/member/login.jsp?msg=fail");  // 로그인 실패
         }

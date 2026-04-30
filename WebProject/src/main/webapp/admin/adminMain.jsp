@@ -12,11 +12,12 @@
 
 <div class="container">
     <h2>관리자 페이지</h2>
-
+	<p><%= loginName %>님, 환영합니다.</p>
     <div class="btn-area">
         <input type="button" value="사용자 관리" onclick="location.href='<%=request.getContextPath()%>/admin/memberList.jsp'">
-        <input type="button" value="게시글 관리" onclick="location.href='<%=request.getContextPath()%>/admin/adminboardList.jsp'">
-        <input type="button" value="메인" onclick="location.href='<%=request.getContextPath()%>/main.jsp'">
+        <input type="button" value="게시판 관리" onclick="location.href='<%=request.getContextPath()%>/admin/adminboardList.jsp'">
+        <input type="button" value="회원정보 수정" onclick="location.href='<%=request.getContextPath()%>/editMember'">
+        <input type="button" value="로그아웃" onclick="location.href='<%=request.getContextPath()%>/logout'">
     </div>
 </div>
 
