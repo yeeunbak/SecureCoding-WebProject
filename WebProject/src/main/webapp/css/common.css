@@ -111,3 +111,15 @@ button:hover {
 .btn-secondary:hover {
     background-color: #5a6268;
 }
+
+/* 로그인, 회원가입, 회원정보 수정 */
+.user-container {
+    width: 90%;
+    max-width: 450px;
+    margin: 60px auto;
+    padding: 25px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+}

@@ -20,7 +20,7 @@
 </head>
 <body>
 
-<div class="container">
+<div class="user-container">
     <h2>회원정보 수정</h2>
 
     <form action="<%=request.getContextPath()%>/editMember" method="post">

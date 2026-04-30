@@ -11,7 +11,7 @@
 </head>
 <body data-context-path="${pageContext.request.contextPath}">
 
-<div class="container">
+<div class="user-container">
     <h2>회원가입</h2>
 
     <form id="joinForm" action="${pageContext.request.contextPath}/join" method="post">

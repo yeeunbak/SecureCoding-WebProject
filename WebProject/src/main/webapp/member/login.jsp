@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<div class="container">
+<div class="user-container">
     <h2>로그인</h2>
     <form action="<%=request.getContextPath()%>/login" method="post">
         <table>
