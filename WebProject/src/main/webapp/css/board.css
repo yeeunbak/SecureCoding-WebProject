@@ -1,7 +1,8 @@
 body {
     font-family: Arial, sans-serif;
-    width: 900px;
-    margin: 40px auto;
+    background-color: #f7f7f7;
+    margin: 0;
+    color: #333;
 }
 
 h1 {
@@ -38,8 +39,8 @@ th {
 }
 
 .btn-area {
-    text-align: right;
-    margin-top: 15px;
+    text-align: center;
+    margin-top: 20px;
 }
 
 button, input[type="submit"] {
@@ -160,4 +161,15 @@ select {
 
 .file-item span {
     font-size: 14px;
+}
+
+.board-container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
 }

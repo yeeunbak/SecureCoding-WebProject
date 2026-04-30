@@ -48,9 +48,9 @@
 </head>
 
 <body>
-
-<h1>등록된 게시글 관리</h1>
-
+<div class="board-container">	
+	<h1>등록된 게시글 관리</h1>
+	
 <div class="search-box">
     <form method="get" action="adminboardList.jsp">
         <select name="searchType">
@@ -153,6 +153,6 @@
 	<button onclick="location.href='<%=request.getContextPath()%>/board/boardForm.jsp?returnUrl=admin'">글쓰기</button>
     <input type="button" value="관리자 메인" onclick="location.href='<%= request.getContextPath() %>/admin/adminMain.jsp'">
 </div>
-
+</div>
 </body>
 </html>

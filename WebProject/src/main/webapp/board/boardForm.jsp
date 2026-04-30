@@ -59,6 +59,7 @@
 </head>
 
 <body>
+<div class="board-container">
 
 <h2><%= isEdit ? "게시글 수정" : "게시글 작성" %></h2>
 
@@ -207,7 +208,7 @@ function deleteFile(fileId) {
     form.submit();
 }
 </script>
-
+</div>
 </body>
 </html>
 

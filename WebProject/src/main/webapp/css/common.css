@@ -1,50 +1,75 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f7f7f7;
+    margin: 0;
+    color: #333;
 }
 
 .container {
-    width: 400px;
+    width: 90%;
+    max-width: 900px;
     margin: 50px auto;
     padding: 30px;
-    background-color: white;
+    background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
+    box-sizing: border-box;
 }
 
 h2 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 table {
     width: 100%;
+    border-collapse: collapse;
 }
 
-td {
-    padding: 8px 5px;
+td, th {
+    padding: 10px;
 }
 
 input[type="text"],
 input[type="password"],
 input[type="date"],
-input[type="email"] {
-    width: 100%;
+input[type="email"],
+select,
+textarea {
     padding: 8px;
     box-sizing: border-box;
 }
 
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="email"],
+textarea {
+    width: 100%;
+}
+
 .btn-area {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 25px;
 }
 
 input[type="submit"],
 input[type="reset"],
-input[type="button"] {
+input[type="button"],
+button {
     padding: 8px 16px;
-    margin: 0 5px;
+    margin: 4px;
     cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover,
+button:hover {
+    background-color: #f0f0f0;
 }
 
 .message {

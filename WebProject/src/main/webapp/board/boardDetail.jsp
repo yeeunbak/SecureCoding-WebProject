@@ -108,8 +108,8 @@
 </head>
 
 <body>
-
-<h1>게시글 상세</h1>
+<div class="board-container">	
+	<h1>게시글 상세</h1>
 
 <table>
     <tr>
@@ -342,6 +342,6 @@ function toggleEdit(commentId) {
     }
 }
 </script>
-
+</div>
 </body>
 </html>

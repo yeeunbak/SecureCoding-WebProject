@@ -53,8 +53,8 @@
 </head>
 
 <body>
-
-<h1>게시글 목록</h1>
+<div class="board-container">
+	<h1>게시글 목록</h1>
 
 <div class="search-box">
     <form method="get" action="boardList.jsp">
@@ -153,6 +153,6 @@
     <button onclick="location.href='<%=request.getContextPath()%>/board/boardForm.jsp'">글쓰기</button>
     <input type="button" value="메인" onclick="location.href='<%= request.getContextPath() %>/main.jsp'">
 </div>
-
+</div>
 </body>
 </html>
