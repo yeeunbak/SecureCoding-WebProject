@@ -1,0 +1,48 @@
+package board;
+
+import java.io.IOException;
+import java.util.List;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@WebServlet("/board/list")
+public class BoardListController extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    private BoardService boardService;
+
+    public BoardListController() {
+        boardService = new BoardServiceImpl();
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        request.setCharacterEncoding("UTF-8");
+
+        String searchType = request.getParameter("searchType");
+        String keyword = request.getParameter("keyword");
+
+        if (searchType == null || searchType.trim().equals("")) {
+            searchType = "title";
+        }
+
+        if (keyword == null) {
+            keyword = "";
+        }
+
+        // 게시글 목록 조회 + 검색
+        List<BoardDTO> boardList = boardService.selectBoardList(searchType, keyword);
+
+        request.setAttribute("boardList", boardList);
+        request.setAttribute("searchType", searchType);
+        request.setAttribute("keyword", keyword);
+
+        request.getRequestDispatcher("/board/boardList.jsp").forward(request, response);
+    }
+}

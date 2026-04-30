@@ -30,6 +30,13 @@
             <artifactId>ojdbc8</artifactId>
             <version>21.11.0.0</version>
         </dependency>
+        
+        <!-- MyBatis -->
+        <dependency>
+        	<groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.5.16</version>
+        </dependency>
     </dependencies>
 
     <build>
