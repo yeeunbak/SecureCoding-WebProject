@@ -52,6 +52,45 @@ select {
     padding: 6px;
 }
 
+/* 게시글 작성/수정 폼 */
+.board-form-table th,
+.board-form-table td {
+    border: 1px solid #ddd;
+}
+
+.board-form-table th {
+    width: 140px;
+    background-color: #f8f8f8;
+    vertical-align: middle;
+}
+
+.board-form-table td {
+    text-align: left;
+}
+
+.board-form-table input[type="text"] {
+    width: 100%;
+    max-width: 500px;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.board-form-table textarea {
+    width: 100%;
+    min-height: 220px;
+    padding: 10px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+.board-form-table input[type="file"] {
+    padding: 6px 0;
+}
+
+.secret-check {
+    text-align: left;
+}
+
 .content {
     text-align: left;
     min-height: 200px;

@@ -79,34 +79,33 @@
         <input type="hidden" name="boardId" value="<%= boardId %>">
     <% } %>
 
-    <table>
+    <table class="board-form-table">
         <tr>
-            <td>제목</td>
+            <th>제목</th>
             <td>
                 <input type="text" name="title" value="<%= title %>" required>
             </td>
         </tr>
 
         <tr>
-            <td>내용</td>
+            <th>내용</th>
             <td>
-                <textarea name="content" rows="10" cols="50" required>
-                    <%= content %>
-                </textarea>
+                <textarea name="content" required><%= content %></textarea>
             </td>
         </tr>
 
         <tr>
             <!-- 비밀글 체크 -->
-            <td>비밀글</td>
-            <td>
-                <input type="checkbox" name="isSecret" value="Y"
-                    <%= "Y".equals(isSecret) ? "checked" : "" %>>
+            <th>비밀글</th>
+            <td class="secret-check">
+            	<label>
+            		<input type="checkbox" name="isSecret" value="Y" <%= "Y".equals(isSecret) ? "checked" : "" %>> 비밀글로 설정
+            	</label>
             </td>
         </tr>
         
         <tr>
-    		<td>첨부파일</td>
+    		<th>첨부파일</th>
     		<td>
 
         		<% if (isEdit) { %>
