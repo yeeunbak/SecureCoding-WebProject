@@ -166,8 +166,7 @@
             onclick="location.href='<%= request.getContextPath() %>/board/list'">
 
         <% if (isWriter) { %>
-            <input type="button" value="수정"
-                onclick="location.href='<%= request.getContextPath() %>/board/boardForm.jsp?boardId=<%= boardId %>'">
+            <input type="button" value="수정" onclick="location.href='<%= request.getContextPath() %>/board/form?boardId=<%= boardId %>'">
 
             <form action="<%= request.getContextPath() %>/board/delete" method="post" style="display:inline;">
                 <input type="hidden" name="boardId" value="<%= boardId %>">

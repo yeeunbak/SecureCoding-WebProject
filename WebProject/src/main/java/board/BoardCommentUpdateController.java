@@ -1,10 +1,7 @@
 package board;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 
-import common.DBUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,6 +12,12 @@ import jakarta.servlet.http.HttpSession;
 @WebServlet("/board/comment/update")
 public class BoardCommentUpdateController extends HttpServlet {
     private static final long serialVersionUID = 1L;
+
+    private BoardService boardService;
+
+    public BoardCommentUpdateController() {
+        boardService = new BoardServiceImpl();
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -30,31 +33,18 @@ public class BoardCommentUpdateController extends HttpServlet {
             return;
         }
 
-        // boardId, commentId -> 어떤 글의 댓글 수정할지 식별
         int boardId = Integer.parseInt(request.getParameter("boardId"));
         int commentId = Integer.parseInt(request.getParameter("commentId"));
         String content = request.getParameter("content");
 
-        String sql =
-            "UPDATE TB_COMMENT " +
-            "SET CONTENT = ?, UPD_DATE = SYSDATE " +
-            "WHERE COMMENT_ID = ? AND WRITER_ID = ?"; // 어떤 글의 댓글 수정할지 식별, 작성자 본인만 삭제 가능
+        CommentDTO comment = new CommentDTO();
+        comment.setBoardId(boardId);
+        comment.setCommentId(commentId);
+        comment.setContent(content);
+        comment.setWriterId(loginId);
 
-        try (
-            Connection conn = DBUtil.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(sql)
-        ) {
-            pstmt.setString(1, content);
-            pstmt.setInt(2, commentId);
-            pstmt.setString(3, loginId);
+        boardService.updateComment(comment);
 
-            pstmt.executeUpdate();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        	// 수정 후, 해당 게시글로 이동
-        response.sendRedirect(request.getContextPath() + "/board/boardDetail.jsp?boardId=" + boardId);
+        response.sendRedirect(request.getContextPath() + "/board/detail?boardId=" + boardId);
     }
 }

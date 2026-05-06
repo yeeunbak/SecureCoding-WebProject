@@ -116,6 +116,44 @@
     	)
 	</insert>
 
+	<!-- 파일 1개 조회 -->
+	<select id="selectFileDetail" parameterType="int" resultType="board.BoardFileDTO">
+    	SELECT
+        	FILE_ID AS fileId
+        	, BOARD_ID AS boardId
+        	, ORIGIN_NAME AS originName
+        	, SAVE_NAME AS saveName
+        	, SAVE_PATH AS savePath
+        	, FILE_SIZE AS fileSize
+        	, FILE_EXT AS fileExt
+    	FROM TB_BOARD_FILE
+    	WHERE FILE_ID = #{fileId}
+	</select>
+
+	<!-- 작성자 확인용 파일 조회 -->
+	<select id="selectFileDetailForWriter" parameterType="map" resultType="board.BoardFileDTO">
+    	SELECT
+        	BF.FILE_ID AS fileId
+        	, BF.BOARD_ID AS boardId
+        	, BF.ORIGIN_NAME AS originName
+        	, BF.SAVE_NAME AS saveName
+        	, BF.SAVE_PATH AS savePath
+        	, BF.FILE_SIZE AS fileSize
+        	, BF.FILE_EXT AS fileExt
+    	FROM TB_BOARD_FILE BF
+    	JOIN TB_BOARD B ON BF.BOARD_ID = B.BOARD_ID
+    	WHERE BF.FILE_ID = #{fileId}
+      	AND BF.BOARD_ID = #{boardId}
+      	AND B.WRITER_ID = #{writerId}
+	</select>
+
+	<!-- 파일 1개 DB 삭제 -->
+	<delete id="deleteFile" parameterType="map">
+    	DELETE FROM TB_BOARD_FILE
+    	WHERE FILE_ID = #{fileId}
+    	  	AND BOARD_ID = #{boardId}
+	</delete>
+	
 	<!-- 게시글 수정 -->
 	<update id="updateBoard" parameterType="board.BoardDTO">
     	UPDATE TB_BOARD
@@ -159,5 +197,41 @@
 	    WHERE BOARD_ID = #{boardId}
 	    ORDER BY COMMENT_ID ASC
 	</select>
+	
+	<!-- 댓글 작성 -->
+	<insert id="insertComment" parameterType="board.CommentDTO">
+	    INSERT INTO TB_COMMENT
+	    (
+	        COMMENT_ID
+	        , BOARD_ID
+	        , CONTENT
+	        , WRITER_ID
+	    )
+	    VALUES
+	    (
+	        SEQ_TB_COMMENT.NEXTVAL
+	        , #{boardId}
+	        , #{content}
+	        , #{writerId}
+	    )
+	</insert>
+
+	<!-- 댓글 수정 -->
+	<update id="updateComment" parameterType="board.CommentDTO">
+	    UPDATE TB_COMMENT
+	    SET
+	        CONTENT = #{content}
+	    WHERE COMMENT_ID = #{commentId}
+	      AND BOARD_ID = #{boardId}
+	      AND WRITER_ID = #{writerId}
+	</update>
+
+	<!-- 댓글 삭제 -->
+	<delete id="deleteComment" parameterType="board.CommentDTO">
+	    DELETE FROM TB_COMMENT
+	    WHERE COMMENT_ID = #{commentId}
+	      AND BOARD_ID = #{boardId}
+	      AND WRITER_ID = #{writerId}
+	</delete>
 
 </mapper>

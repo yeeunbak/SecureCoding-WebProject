@@ -31,6 +31,21 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    public BoardFileDTO selectFileDetail(int fileId) {
+        return boardDAO.selectFileDetail(fileId);
+    }
+
+    @Override
+    public BoardFileDTO selectFileDetailForWriter(int fileId, int boardId, String writerId) {
+        return boardDAO.selectFileDetailForWriter(fileId, boardId, writerId);
+    }
+
+    @Override
+    public int deleteFile(int fileId, int boardId) {
+        return boardDAO.deleteFile(fileId, boardId);
+    }
+    
+    @Override
     public List<CommentDTO> selectCommentList(int boardId) {
         return boardDAO.selectCommentList(boardId);
     }
@@ -48,5 +63,20 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public int deleteBoard(int boardId, String writerId) {
         return boardDAO.deleteBoard(boardId, writerId);
+    }
+    
+    @Override
+    public int insertComment(CommentDTO comment) {
+        return boardDAO.insertComment(comment);
+    }
+
+    @Override
+    public int updateComment(CommentDTO comment) {
+        return boardDAO.updateComment(comment);
+    }
+
+    @Override
+    public int deleteComment(CommentDTO comment) {
+        return boardDAO.deleteComment(comment);
     }
 }
