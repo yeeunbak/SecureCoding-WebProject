@@ -4,7 +4,7 @@
 <mapper namespace="board.BoardMapper">
 
     <!-- 게시글 목록 조회 + 검색 -->
-    <select id="selectBoardList" parameterType="map" resultType="board.BoardDTO">
+    <select id="selectBoardList" parameterType="map" resultType="board.dto.BoardDTO">
         SELECT
             BOARD_ID    AS boardId
             , TITLE       AS title
@@ -34,7 +34,7 @@
     </select>
     
     <!-- 게시글 상세 조회 -->
-	<select id="selectBoardDetail" parameterType="int" resultType="board.BoardDTO">
+	<select id="selectBoardDetail" parameterType="int" resultType="board.dto.BoardDTO">
     	SELECT
         	BOARD_ID    AS boardId
         	, TITLE       AS title
@@ -56,7 +56,7 @@
 	</update>
 	
 	<!-- 첨부파일 목록 조회 -->
-		<select id="selectFileList" parameterType="int" resultType="board.BoardFileDTO">
+		<select id="selectFileList" parameterType="int" resultType="board.dto.BoardFileDTO">
     	SELECT
         	FILE_ID     AS fileId
         	, BOARD_ID    AS boardId
@@ -73,7 +73,7 @@
 	</select>
 
 	<!-- 게시글 작성 -->
-	<insert id="insertBoard" parameterType="board.BoardDTO">
+	<insert id="insertBoard" parameterType="board.dto.BoardDTO">
     	INSERT INTO TB_BOARD
     	(
         	BOARD_ID
@@ -93,7 +93,7 @@
 	</insert>
 
 	<!-- 첨부파일 저장 -->
-	<insert id="insertBoardFile" parameterType="board.BoardFileDTO">
+	<insert id="insertBoardFile" parameterType="board.dto.BoardFileDTO">
     	INSERT INTO TB_BOARD_FILE
     	(
         	FILE_ID
@@ -117,7 +117,7 @@
 	</insert>
 
 	<!-- 파일 1개 조회 -->
-	<select id="selectFileDetail" parameterType="int" resultType="board.BoardFileDTO">
+	<select id="selectFileDetail" parameterType="int" resultType="board.dto.BoardFileDTO">
     	SELECT
         	FILE_ID AS fileId
         	, BOARD_ID AS boardId
@@ -131,7 +131,7 @@
 	</select>
 
 	<!-- 작성자 확인용 파일 조회 -->
-	<select id="selectFileDetailForWriter" parameterType="map" resultType="board.BoardFileDTO">
+	<select id="selectFileDetailForWriter" parameterType="map" resultType="board.dto.BoardFileDTO">
     	SELECT
         	BF.FILE_ID AS fileId
         	, BF.BOARD_ID AS boardId
@@ -155,7 +155,7 @@
 	</delete>
 	
 	<!-- 게시글 수정 -->
-	<update id="updateBoard" parameterType="board.BoardDTO">
+	<update id="updateBoard" parameterType="board.dto.BoardDTO">
     	UPDATE TB_BOARD
     	SET
         	TITLE = #{title}
@@ -192,7 +192,7 @@
 	</delete>
 	
 	<!-- 댓글 조회 -->
-	<select id="selectCommentList" parameterType="int" resultType="board.CommentDTO">
+	<select id="selectCommentList" parameterType="int" resultType="board.dto.CommentDTO">
 	    SELECT
 	        COMMENT_ID  AS commentId
 	        , BOARD_ID    AS boardId
@@ -205,7 +205,7 @@
 	</select>
 	
 	<!-- 댓글 작성 -->
-	<insert id="insertComment" parameterType="board.CommentDTO">
+	<insert id="insertComment" parameterType="board.dto.CommentDTO">
 	    INSERT INTO TB_COMMENT
 	    (
 	        COMMENT_ID
@@ -223,7 +223,7 @@
 	</insert>
 
 	<!-- 댓글 수정 -->
-	<update id="updateComment" parameterType="board.CommentDTO">
+	<update id="updateComment" parameterType="board.dto.CommentDTO">
 	    UPDATE TB_COMMENT
 	    SET
 	        CONTENT = #{content}
@@ -233,7 +233,7 @@
 	</update>
 
 	<!-- 댓글 삭제 -->
-	<delete id="deleteComment" parameterType="board.CommentDTO">
+	<delete id="deleteComment" parameterType="board.dto.CommentDTO">
 	    DELETE FROM TB_COMMENT
 	    WHERE COMMENT_ID = #{commentId}
 	      AND BOARD_ID = #{boardId}
