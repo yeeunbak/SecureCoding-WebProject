@@ -1,4 +1,4 @@
-package member;
+package member.dto;
 
 import java.sql.Date;
 

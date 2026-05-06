@@ -8,8 +8,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import member.MemberService;
-import member.MemberServiceImpl;
+import member.service.MemberService;
+import member.service.MemberServiceImpl;
 
 @WebServlet("/admin/member/delete")
 public class AdminMemberDeleteController extends HttpServlet {

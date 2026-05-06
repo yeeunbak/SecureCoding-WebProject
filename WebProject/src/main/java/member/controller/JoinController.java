@@ -1,5 +1,5 @@
 /* 회원가입 요청 받기 -> 값 정리해 Service에 넘김 -> 화면 이동 */
-package member;
+package member.controller;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -9,6 +9,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import member.dto.MemberDTO;
+import member.service.MemberService;
+import member.service.MemberServiceImpl;
 
 /* 회원가입 버튼 클릭 시 */
 @WebServlet("/join")

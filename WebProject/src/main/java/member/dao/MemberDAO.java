@@ -1,4 +1,4 @@
-package member;
+package member.dao;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import common.MyBatisUtil;
+import member.dto.MemberDTO;
 
 public class MemberDAO {
 

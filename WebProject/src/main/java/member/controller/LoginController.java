@@ -1,4 +1,4 @@
-package member;
+package member.controller;
 
 import java.io.IOException;
 
@@ -8,6 +8,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import member.dto.MemberDTO;
+import member.service.MemberService;
+import member.service.MemberServiceImpl;
 
 /* 로그인 버튼 클릭 시 */
 @WebServlet("/login")

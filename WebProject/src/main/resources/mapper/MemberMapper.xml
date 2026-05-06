@@ -3,7 +3,7 @@
 <mapper namespace="member.MemberMapper">
 
     <!-- 회원가입 -->
-    <insert id="insertMember" parameterType="member.MemberDTO">
+    <insert id="insertMember" parameterType="member.dto.MemberDTO">
         INSERT INTO TB_MEMBER
         (
             USER_ID
@@ -39,7 +39,7 @@
     </select>
 
     <!-- 로그인 -->
-    <select id="login" parameterType="map" resultType="member.MemberDTO">
+    <select id="login" parameterType="map" resultType="member.dto.MemberDTO">
         SELECT
             USER_ID AS userId,
             USER_NAME AS userName,
@@ -50,7 +50,7 @@
     </select>
 
     <!-- 회원 조회 -->
-    <select id="selectMemberById" parameterType="string" resultType="member.MemberDTO">
+    <select id="selectMemberById" parameterType="string" resultType="member.dto.MemberDTO">
         SELECT
             USER_ID AS userId,
             USER_PW AS userPw,
@@ -63,7 +63,7 @@
     </select>
 
 	<!-- 회원 목록 조회 -->
-	<select id="selectMemberList" resultType="member.MemberDTO">
+	<select id="selectMemberList" resultType="member.dto.MemberDTO">
     	SELECT
         	USER_ID AS userId
         	, USER_NAME AS userName
@@ -75,7 +75,7 @@
 	</select>
 	
     <!-- 회원정보 수정 -->
-    <update id="updateMember" parameterType="member.MemberDTO">
+    <update id="updateMember" parameterType="member.dto.MemberDTO">
         UPDATE TB_MEMBER
         SET
             USER_PW = #{userPw},

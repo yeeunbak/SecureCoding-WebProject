@@ -1,4 +1,4 @@
-package member;
+package member.controller;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -9,6 +9,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import member.dto.MemberDTO;
+import member.service.MemberService;
+import member.service.MemberServiceImpl;
 
 /* 회원정보 수정 */
 @WebServlet("/editMember")

@@ -1,5 +1,5 @@
 f<%@ page import="java.util.List" %>
-<%@ page import="member.MemberDTO" %>
+<%@ page import="member.dto.MemberDTO" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/common/adminCheck.jsp" %>
 

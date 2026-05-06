@@ -9,9 +9,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import member.MemberDTO;
-import member.MemberService;
-import member.MemberServiceImpl;
+import member.dto.MemberDTO;
+import member.service.MemberService;
+import member.service.MemberServiceImpl;
 
 @WebServlet("/admin/member/list")
 public class AdminMemberListController extends HttpServlet {

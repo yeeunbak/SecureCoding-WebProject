@@ -1,6 +1,9 @@
-package member;
+package member.service;
 
 import java.util.List;
+
+import member.dao.MemberDAO;
+import member.dto.MemberDTO;
 
 public class MemberServiceImpl implements MemberService {
 
