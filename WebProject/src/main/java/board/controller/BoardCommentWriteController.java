@@ -37,7 +37,14 @@ public class BoardCommentWriteController extends HttpServlet {
             return;
         }
 
-        int boardId = Integer.parseInt(request.getParameter("boardId"));
+        int boardId = 0;
+
+        try {
+            boardId = Integer.parseInt(request.getParameter("boardId"));
+        } catch (NumberFormatException e) {
+            response.sendRedirect(request.getContextPath() + "/board/list");
+            return;
+        }
         String content = request.getParameter("content");
 
         CommentDTO comment = new CommentDTO();

@@ -36,7 +36,14 @@ public class BoardCommentDeleteController extends HttpServlet {
             return;
         }
 
-        int boardId = Integer.parseInt(request.getParameter("boardId"));
+        int boardId = 0;
+
+        try {
+            boardId = Integer.parseInt(request.getParameter("boardId"));
+        } catch (NumberFormatException e) {
+            response.sendRedirect(request.getContextPath() + "/board/list");
+            return;
+        }
         int commentId = Integer.parseInt(request.getParameter("commentId"));
 
         CommentDTO comment = new CommentDTO();

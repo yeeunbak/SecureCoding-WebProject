@@ -37,7 +37,14 @@ public class BoardFileDeleteController extends HttpServlet {
             return;
         }
 
-        int boardId = Integer.parseInt(request.getParameter("boardId"));
+        int boardId = 0;
+
+        try {
+            boardId = Integer.parseInt(request.getParameter("boardId"));
+        } catch (NumberFormatException e) {
+            response.sendRedirect(request.getContextPath() + "/board/list");
+            return;
+        }
         int fileId = Integer.parseInt(request.getParameter("fileId"));
 
         // 파일이 로그인 사용자의 게시글에 속한 파일인지 확인
