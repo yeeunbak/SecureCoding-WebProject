@@ -39,12 +39,12 @@ public class AdminMemberDeleteController extends HttpServlet {
         String userId = request.getParameter("userId");
 
         if (userId == null || userId.trim().equals("")) {
-            response.sendRedirect(request.getContextPath() + "/admin/memberList.jsp?msg=error");
+            response.sendRedirect(request.getContextPath() + "/admin/member/list?msg=error");
             return;
         }
 
         if (userId.equals(loginId)) {
-            response.sendRedirect(request.getContextPath() + "/admin/memberList.jsp?msg=self");
+            response.sendRedirect(request.getContextPath() + "/admin/member/list?msg=self");
             return;
         }
 
@@ -52,7 +52,7 @@ public class AdminMemberDeleteController extends HttpServlet {
             int boardCount = memberService.countBoardByWriterId(userId);
 
             if (boardCount > 0) {
-                response.sendRedirect(request.getContextPath() + "/admin/memberList.jsp?msg=hasBoard");
+                response.sendRedirect(request.getContextPath() + "/admin/member/list?msg=hasBoard");
                 return;
             }
 
@@ -60,10 +60,10 @@ public class AdminMemberDeleteController extends HttpServlet {
 
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect(request.getContextPath() + "/admin/memberList.jsp?msg=error");
+            response.sendRedirect(request.getContextPath() + "/admin/member/list?msg=error");
             return;
         }
 
-        response.sendRedirect(request.getContextPath() + "/admin/memberList.jsp?msg=success");
+        response.sendRedirect(request.getContextPath() + "/admin/member/list?msg=success");
     }
 }

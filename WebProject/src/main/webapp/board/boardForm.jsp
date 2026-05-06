@@ -16,6 +16,11 @@
     String title = isEdit ? board.getTitle() : "";
     String content = isEdit ? board.getContent() : "";
     String isSecret = isEdit ? board.getIsSecret() : "N";
+    
+    String returnUrl = request.getParameter("returnUrl");
+    if (returnUrl == null){
+    	returnUrl = "";
+    }
 %>
 
 <!DOCTYPE html>
@@ -35,6 +40,8 @@
       method="post"
       enctype="multipart/form-data">
 
+	<input type="hidden" name="returnUrl" value="<%= returnUrl %>">
+	
     <% if (isEdit) { %>
         <input type="hidden" name="boardId" value="<%= boardId %>">
     <% } %>

@@ -40,12 +40,12 @@ public class AdminMemberRoleUpdateController extends HttpServlet {
 
         if (userId == null || userId.trim().equals("")
                 || role == null || role.trim().equals("")) {
-            response.sendRedirect(request.getContextPath() + "/admin/memberList.jsp?msg=error");
+            response.sendRedirect(request.getContextPath() + "/admin/member/list?msg=error");
             return;
         }
 
         memberService.updateMemberRole(userId, role);
 
-        response.sendRedirect(request.getContextPath() + "/admin/memberList.jsp");
+        response.sendRedirect(request.getContextPath() + "/admin/member/list");
     }
 }

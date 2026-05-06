@@ -42,6 +42,8 @@ public class BoardWriteController extends HttpServlet {
             return;
         }
 
+        String returnUrl = request.getParameter("returnUrl");
+
         String title = request.getParameter("title");
         String content = request.getParameter("content");
         String isSecret = request.getParameter("isSecret");
@@ -98,9 +100,17 @@ public class BoardWriteController extends HttpServlet {
         int boardId = boardService.insertBoard(board, fileList);
 
         if (boardId > 0) {
-            response.sendRedirect(request.getContextPath() + "/board/detail?boardId=" + boardId);
+            if ("admin".equals(returnUrl)) {
+                response.sendRedirect(request.getContextPath() + "/admin/board/detail?boardId=" + boardId);
+            } else {
+                response.sendRedirect(request.getContextPath() + "/board/detail?boardId=" + boardId);
+            }
         } else {
-            response.sendRedirect(request.getContextPath() + "/board/list");
+            if ("admin".equals(returnUrl)) {
+                response.sendRedirect(request.getContextPath() + "/admin/board/list");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/board/list");
+            }
         }
     }
 
