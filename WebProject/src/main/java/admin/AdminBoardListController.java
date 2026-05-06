@@ -1,7 +1,9 @@
 package admin;
 
 import java.io.IOException;
+import java.util.List;
 
+import board.BoardDTO;
 import board.BoardService;
 import board.BoardServiceImpl;
 import jakarta.servlet.ServletException;
@@ -11,18 +13,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet("/admin/board/delete")
-public class AdminBoardDeleteController extends HttpServlet {
+@WebServlet("/admin/board/list")
+public class AdminBoardListController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private BoardService boardService;
 
-    public AdminBoardDeleteController() {
+    public AdminBoardListController() {
         boardService = new BoardServiceImpl();
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
@@ -30,16 +32,28 @@ public class AdminBoardDeleteController extends HttpServlet {
         HttpSession session = request.getSession();
         String loginRole = (String) session.getAttribute("loginRole");
 
-        // 관리자 체크
         if (!"ADMIN".equals(loginRole)) {
             response.sendRedirect(request.getContextPath() + "/main.jsp");
             return;
         }
 
-        int boardId = Integer.parseInt(request.getParameter("boardId"));
+        String searchType = request.getParameter("searchType");
+        String keyword = request.getParameter("keyword");
 
-        boardService.adminDeleteBoard(boardId);
+        if (searchType == null || searchType.trim().equals("")) {
+            searchType = "title";
+        }
 
-        response.sendRedirect(request.getContextPath() + "/admin/board/list");
+        if (keyword == null) {
+            keyword = "";
+        }
+
+        List<BoardDTO> boardList = boardService.selectBoardList(searchType, keyword);
+
+        request.setAttribute("boardList", boardList);
+        request.setAttribute("searchType", searchType);
+        request.setAttribute("keyword", keyword);
+
+        request.getRequestDispatcher("/admin/adminboardList.jsp").forward(request, response);
     }
 }

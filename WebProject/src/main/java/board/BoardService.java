@@ -21,7 +21,10 @@ public interface BoardService {
 
     // 게시글 삭제
     int deleteBoard(int boardId, String writerId);
-
+    
+    // 관리자 게시글 삭제
+    int adminDeleteBoard(int boardId);
+    
     // 첨부파일 목록 조회
     List<BoardFileDTO> selectFileList(int boardId);
 

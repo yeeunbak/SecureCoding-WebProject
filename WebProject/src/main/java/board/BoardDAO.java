@@ -127,6 +127,34 @@ public class BoardDAO {
     }
 
     /* =========================
+    관리자 게시글 작성 / 수정 / 삭제
+    ========================= */
+    // 관리자 게시글 삭제
+    public int adminDeleteBoard(int boardId) {
+        SqlSession session = null;
+
+        try {
+            session = MyBatisUtil.getSqlSessionFactory().openSession(false);
+
+            // 자식 데이터 먼저 삭제
+            session.delete(NAMESPACE + "deleteCommentByBoardId", boardId);
+            session.delete(NAMESPACE + "deleteFileByBoardId", boardId);
+
+            int result = session.delete(NAMESPACE + "adminDeleteBoard", boardId);
+
+            session.commit();
+            return result;
+
+        } catch (Exception e) {
+            if (session != null) session.rollback();
+            e.printStackTrace();
+            return 0;
+        } finally {
+            if (session != null) session.close();
+        }
+    }
+    
+    /* =========================
        파일
        ========================= */
 

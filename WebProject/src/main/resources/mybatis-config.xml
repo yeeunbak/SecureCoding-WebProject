@@ -19,6 +19,7 @@
     <!-- Mapper XML 등록 -->
     <mappers>
         <mapper resource="mapper/BoardMapper.xml"/>
+        <mapper resource="mapper/MemberMapper.xml"/>
     </mappers>
 
 </configuration>

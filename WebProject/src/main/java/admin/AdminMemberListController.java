@@ -1,28 +1,30 @@
 package admin;
 
 import java.io.IOException;
+import java.util.List;
 
-import board.BoardService;
-import board.BoardServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import member.MemberDTO;
+import member.MemberService;
+import member.MemberServiceImpl;
 
-@WebServlet("/admin/board/delete")
-public class AdminBoardDeleteController extends HttpServlet {
+@WebServlet("/admin/member/list")
+public class AdminMemberListController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    private BoardService boardService;
+    private MemberService memberService;
 
-    public AdminBoardDeleteController() {
-        boardService = new BoardServiceImpl();
+    public AdminMemberListController() {
+        memberService = new MemberServiceImpl();
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
@@ -30,16 +32,15 @@ public class AdminBoardDeleteController extends HttpServlet {
         HttpSession session = request.getSession();
         String loginRole = (String) session.getAttribute("loginRole");
 
-        // 관리자 체크
         if (!"ADMIN".equals(loginRole)) {
             response.sendRedirect(request.getContextPath() + "/main.jsp");
             return;
         }
 
-        int boardId = Integer.parseInt(request.getParameter("boardId"));
+        List<MemberDTO> memberList = memberService.selectMemberList();
 
-        boardService.adminDeleteBoard(boardId);
+        request.setAttribute("memberList", memberList);
 
-        response.sendRedirect(request.getContextPath() + "/admin/board/list");
+        request.getRequestDispatcher("/admin/memberList.jsp").forward(request, response);
     }
 }

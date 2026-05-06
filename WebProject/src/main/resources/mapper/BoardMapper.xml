@@ -185,6 +185,12 @@
 	      AND WRITER_ID = #{writerId}
 	</delete>
 
+	<!-- 관리자 게시글 삭제 -->
+	<delete id="adminDeleteBoard" parameterType="int">
+    	DELETE FROM TB_BOARD
+    	WHERE BOARD_ID = #{boardId}
+	</delete>
+	
 	<!-- 댓글 조회 -->
 	<select id="selectCommentList" parameterType="int" resultType="board.CommentDTO">
 	    SELECT

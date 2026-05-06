@@ -1,18 +1,11 @@
-<%@ page import="java.sql.*" %>
-<%@ page import="common.DBUtil" %>
+<%@ page import="java.util.List" %>
+<%@ page import="member.MemberDTO" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/common/adminCheck.jsp" %>
 
 <%
-    Connection conn = null;
-    PreparedStatement pstmt = null;
-    ResultSet rs = null;
-
-    String sql =
-        "SELECT USER_ID, USER_NAME, USER_EMAIL, USER_ROLE, " +
-        "       TO_CHAR(REG_DATE, 'YYYY-MM-DD') AS REG_DATE " +
-        "FROM TB_MEMBER " +
-        "ORDER BY REG_DATE DESC";
+    @SuppressWarnings("unchecked")
+    List<MemberDTO> memberList = (List<MemberDTO>) request.getAttribute("memberList");
 %>
 
 <!DOCTYPE html>
@@ -39,68 +32,41 @@
         </tr>
 
 <%
-    try {
-        conn = DBUtil.getConnection();
-        pstmt = conn.prepareStatement(sql);
-        rs = pstmt.executeQuery();
-
-        boolean hasData = false;
-
-        while (rs.next()) {
-            hasData = true;
-
-            String userId = rs.getString("USER_ID");
-            String userName = rs.getString("USER_NAME");
-            String userEmail = rs.getString("USER_EMAIL");
-            String userRole = rs.getString("USER_ROLE");
-            String regDate = rs.getString("REG_DATE");
+    if (memberList == null || memberList.isEmpty()) {
 %>
         <tr>
-            <td><%= userId %></td>
-            <td><%= userName %></td>
-            <td><%= userEmail %></td>
+            <td colspan="6">등록된 사용자가 없습니다.</td>
+        </tr>
+<%
+    } else {
+        for (MemberDTO member : memberList) {
+%>
+        <tr>
+            <td><%= member.getUserId() %></td>
+            <td><%= member.getUserName() %></td>
+            <td><%= member.getUserEmail() %></td>
             <td>
-    			<form action="<%=request.getContextPath()%>/admin/member/roleUpdate" method="post">
-        			<input type="hidden" name="userId" value="<%= userId %>">
+                <form action="<%=request.getContextPath()%>/admin/member/roleUpdate" method="post">
+                    <input type="hidden" name="userId" value="<%= member.getUserId() %>">
 
-        			<select name="role">
-            			<option value="USER" <%= "USER".equals(userRole) ? "selected" : "" %>>USER</option>
-            			<option value="ADMIN" <%= "ADMIN".equals(userRole) ? "selected" : "" %>>ADMIN</option>
-        			</select>
+                    <select name="role">
+                        <option value="USER" <%= "USER".equals(member.getUserRole()) ? "selected" : "" %>>USER</option>
+                        <option value="ADMIN" <%= "ADMIN".equals(member.getUserRole()) ? "selected" : "" %>>ADMIN</option>
+                    </select>
 
-        			<input type="submit" value="변경">
-    			</form>
-			</td>
-            <td><%= regDate %></td>
+                    <input type="submit" value="변경">
+                </form>
+            </td>
+            <td><%= member.getRegDate() %></td>
             <td>
-    			<form action="<%=request.getContextPath()%>/admin/member/delete" method="post" style="display:inline;">
-        			<input type="hidden" name="userId" value="<%= userId %>">
-        			<input type="submit" value="계정삭제" onclick="return confirm('정말 이 사용자를 삭제하겠습니까?');">
-    			</form>
-			</td>
+                <form action="<%=request.getContextPath()%>/admin/member/delete" method="post" style="display:inline;">
+                    <input type="hidden" name="userId" value="<%= member.getUserId() %>">
+                    <input type="submit" value="계정삭제" onclick="return confirm('정말 이 사용자를 삭제하겠습니까?');">
+                </form>
+            </td>
         </tr>
 <%
         }
-
-        if (!hasData) {
-%>
-        <tr>
-            <td colspan="5">등록된 사용자가 없습니다.</td>
-        </tr>
-<%
-        }
-
-    } catch (Exception e) {
-        e.printStackTrace();
-%>
-        <tr>
-            <td colspan="5">사용자 목록 조회 중 오류가 발생했습니다.</td>
-        </tr>
-<%
-    } finally {
-        if (rs != null) try { rs.close(); } catch (Exception e) {}
-        if (pstmt != null) try { pstmt.close(); } catch (Exception e) {}
-        if (conn != null) try { conn.close(); } catch (Exception e) {}
     }
 %>
     </table>

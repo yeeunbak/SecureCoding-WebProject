@@ -1,5 +1,7 @@
 package member;
 
+import java.util.List;
+
 public class MemberServiceImpl implements MemberService {
 
 	/* DAO 통해 접근 */
@@ -51,5 +53,25 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public int updateMember(MemberDTO member) {
         return memberDAO.updateMember(member);
+    }
+    
+    @Override
+    public int countBoardByWriterId(String userId) {
+        return memberDAO.countBoardByWriterId(userId);
+    }
+
+    @Override
+    public int deleteMember(String userId) {
+        return memberDAO.deleteMember(userId);
+    }
+    
+    @Override
+    public int updateMemberRole(String userId, String role) {
+        return memberDAO.updateMemberRole(userId, role);
+    }
+    
+    @Override
+    public List<MemberDTO> selectMemberList() {
+        return memberDAO.selectMemberList();
     }
 }

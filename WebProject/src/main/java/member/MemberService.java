@@ -1,8 +1,9 @@
 package member;
 
+import java.util.List;
+
 public interface MemberService {
 
-	/* 필요한 메서드 -> 구현 MemberServiceImpl */
     int joinMember(MemberDTO member);
 
     boolean isUserIdExists(String userId);
@@ -13,4 +14,12 @@ public interface MemberService {
     MemberDTO getMemberById(String userId);
     
     int updateMember(MemberDTO member);
+    
+    int countBoardByWriterId(String userId);
+
+    int deleteMember(String userId);
+    
+    int updateMemberRole(String userId, String role);
+    
+    List<MemberDTO> selectMemberList();
 }

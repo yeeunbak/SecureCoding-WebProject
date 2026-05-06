@@ -66,6 +66,11 @@ public class BoardServiceImpl implements BoardService {
     }
     
     @Override
+    public int adminDeleteBoard(int boardId) {
+        return boardDAO.adminDeleteBoard(boardId);
+    }
+    
+    @Override
     public int insertComment(CommentDTO comment) {
         return boardDAO.insertComment(comment);
     }
