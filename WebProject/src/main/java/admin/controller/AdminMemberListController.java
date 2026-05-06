@@ -1,6 +1,7 @@
-package admin;
+package admin.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,21 +9,22 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import member.dto.MemberDTO;
 import member.service.MemberService;
 import member.service.MemberServiceImpl;
 
-@WebServlet("/admin/member/roleUpdate")
-public class AdminMemberRoleUpdateController extends HttpServlet {
+@WebServlet("/admin/member/list")
+public class AdminMemberListController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private MemberService memberService;
 
-    public AdminMemberRoleUpdateController() {
+    public AdminMemberListController() {
         memberService = new MemberServiceImpl();
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
@@ -35,17 +37,10 @@ public class AdminMemberRoleUpdateController extends HttpServlet {
             return;
         }
 
-        String userId = request.getParameter("userId");
-        String role = request.getParameter("role");
+        List<MemberDTO> memberList = memberService.selectMemberList();
 
-        if (userId == null || userId.trim().equals("")
-                || role == null || role.trim().equals("")) {
-            response.sendRedirect(request.getContextPath() + "/admin/member/list?msg=error");
-            return;
-        }
+        request.setAttribute("memberList", memberList);
 
-        memberService.updateMemberRole(userId, role);
-
-        response.sendRedirect(request.getContextPath() + "/admin/member/list");
+        request.getRequestDispatcher("/admin/memberList.jsp").forward(request, response);
     }
 }
