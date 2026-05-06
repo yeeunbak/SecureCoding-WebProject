@@ -7,8 +7,11 @@
 
 <%
     BoardDTO board = (BoardDTO) request.getAttribute("board");
+	
+	@SuppressWarnings("unchecked")
     List<BoardFileDTO> fileList = (List<BoardFileDTO>) request.getAttribute("fileList");
-    List<CommentDTO> commentList = (List<CommentDTO>) request.getAttribute("commentList");
+	@SuppressWarnings("unchecked")
+	List<CommentDTO> commentList = (List<CommentDTO>) request.getAttribute("commentList");
 
     if (board == null) {
         response.sendRedirect(request.getContextPath() + "/board/list");

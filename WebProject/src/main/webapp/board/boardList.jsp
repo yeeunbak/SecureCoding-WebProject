@@ -4,6 +4,7 @@
 <%@ include file="/common/loginCheck.jsp" %>
 
 <%
+	@SuppressWarnings("unchecked")
     List<BoardDTO> boardList = (List<BoardDTO>) request.getAttribute("boardList");
 %>
 
