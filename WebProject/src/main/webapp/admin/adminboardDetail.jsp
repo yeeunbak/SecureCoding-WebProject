@@ -1,7 +1,7 @@
 <%@ page import="java.util.List" %>
-<%@ page import="board.BoardDTO" %>
-<%@ page import="board.BoardFileDTO" %>
-<%@ page import="board.CommentDTO" %>
+<%@ page import="board.dto.BoardDTO" %>
+<%@ page import="board.dto.BoardFileDTO" %>
+<%@ page import="board.dto.CommentDTO" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/common/adminCheck.jsp" %>
 

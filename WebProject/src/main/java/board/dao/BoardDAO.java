@@ -1,4 +1,4 @@
-package board;
+package board.dao;
 
 import java.util.HashMap;
 import java.util.List;
@@ -6,6 +6,9 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import board.dto.BoardDTO;
+import board.dto.BoardFileDTO;
+import board.dto.CommentDTO;
 import common.MyBatisUtil;
 
 public class BoardDAO {

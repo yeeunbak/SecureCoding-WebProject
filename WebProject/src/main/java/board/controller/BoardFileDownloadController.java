@@ -1,10 +1,13 @@
-package board;
+package board.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
 
+import board.dto.BoardFileDTO;
+import board.service.BoardService;
+import board.service.BoardServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

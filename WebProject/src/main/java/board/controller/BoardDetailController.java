@@ -1,8 +1,13 @@
-package board;
+package board.controller;
 
 import java.io.IOException;
 import java.util.List;
 
+import board.dto.BoardDTO;
+import board.dto.BoardFileDTO;
+import board.dto.CommentDTO;
+import board.service.BoardService;
+import board.service.BoardServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

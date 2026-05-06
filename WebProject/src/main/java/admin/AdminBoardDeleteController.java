@@ -2,8 +2,8 @@ package admin;
 
 import java.io.IOException;
 
-import board.BoardService;
-import board.BoardServiceImpl;
+import board.service.BoardService;
+import board.service.BoardServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

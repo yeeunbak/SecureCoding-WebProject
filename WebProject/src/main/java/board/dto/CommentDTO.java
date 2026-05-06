@@ -1,4 +1,4 @@
-package board;
+package board.dto;
 
 public class CommentDTO {
 

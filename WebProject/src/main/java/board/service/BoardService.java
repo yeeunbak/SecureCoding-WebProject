@@ -1,6 +1,10 @@
-package board;
+package board.service;
 
 import java.util.List;
+
+import board.dto.BoardDTO;
+import board.dto.BoardFileDTO;
+import board.dto.CommentDTO;
 
 public interface BoardService {
 

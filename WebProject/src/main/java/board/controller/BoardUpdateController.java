@@ -1,4 +1,4 @@
-package board;
+package board.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import board.dto.BoardDTO;
+import board.dto.BoardFileDTO;
+import board.service.BoardService;
+import board.service.BoardServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -15,16 +19,16 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
-@WebServlet("/board/write")
+@WebServlet("/board/update")
 @MultipartConfig
-public class BoardWriteController extends HttpServlet {
+public class BoardUpdateController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private static final String UPLOAD_DIR = "/home/yeeun/upload/board";
 
     private BoardService boardService;
 
-    public BoardWriteController() {
+    public BoardUpdateController() {
         boardService = new BoardServiceImpl();
     }
 
@@ -35,14 +39,14 @@ public class BoardWriteController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         HttpSession session = request.getSession();
-        String writerId = (String) session.getAttribute("loginId");
+        String loginId = (String) session.getAttribute("loginId");
 
-        if (writerId == null) {
+        if (loginId == null) {
             response.sendRedirect(request.getContextPath() + "/member/login.jsp");
             return;
         }
 
-        String returnUrl = request.getParameter("returnUrl");
+        int boardId = Integer.parseInt(request.getParameter("boardId"));
 
         String title = request.getParameter("title");
         String content = request.getParameter("content");
@@ -53,10 +57,11 @@ public class BoardWriteController extends HttpServlet {
         }
 
         BoardDTO board = new BoardDTO();
+        board.setBoardId(boardId);
         board.setTitle(title);
         board.setContent(content);
-        board.setWriterId(writerId);
         board.setIsSecret(isSecret);
+        board.setWriterId(loginId);
 
         List<BoardFileDTO> fileList = new ArrayList<>();
 
@@ -88,6 +93,7 @@ public class BoardWriteController extends HttpServlet {
             filePart.write(savePath);
 
             BoardFileDTO file = new BoardFileDTO();
+            file.setBoardId(boardId);
             file.setOriginName(originName);
             file.setSaveName(saveName);
             file.setSavePath(savePath);
@@ -97,20 +103,12 @@ public class BoardWriteController extends HttpServlet {
             fileList.add(file);
         }
 
-        int boardId = boardService.insertBoard(board, fileList);
+        int result = boardService.updateBoard(board, fileList);
 
-        if (boardId > 0) {
-            if ("admin".equals(returnUrl)) {
-                response.sendRedirect(request.getContextPath() + "/admin/board/detail?boardId=" + boardId);
-            } else {
-                response.sendRedirect(request.getContextPath() + "/board/detail?boardId=" + boardId);
-            }
+        if (result > 0) {
+            response.sendRedirect(request.getContextPath() + "/board/detail?boardId=" + boardId);
         } else {
-            if ("admin".equals(returnUrl)) {
-                response.sendRedirect(request.getContextPath() + "/admin/board/list");
-            } else {
-                response.sendRedirect(request.getContextPath() + "/board/list");
-            }
+            response.sendRedirect(request.getContextPath() + "/board/list");
         }
     }
 

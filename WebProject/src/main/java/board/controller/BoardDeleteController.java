@@ -1,7 +1,9 @@
-package board;
+package board.controller;
 
 import java.io.IOException;
 
+import board.service.BoardService;
+import board.service.BoardServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -9,13 +11,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet("/board/comment/delete")
-public class BoardCommentDeleteController extends HttpServlet {
+@WebServlet("/board/delete")
+public class BoardDeleteController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private BoardService boardService;
 
-    public BoardCommentDeleteController() {
+    public BoardDeleteController() {
         boardService = new BoardServiceImpl();
     }
 
@@ -34,15 +36,9 @@ public class BoardCommentDeleteController extends HttpServlet {
         }
 
         int boardId = Integer.parseInt(request.getParameter("boardId"));
-        int commentId = Integer.parseInt(request.getParameter("commentId"));
 
-        CommentDTO comment = new CommentDTO();
-        comment.setBoardId(boardId);
-        comment.setCommentId(commentId);
-        comment.setWriterId(loginId);
+        boardService.deleteBoard(boardId, loginId);
 
-        boardService.deleteComment(comment);
-
-        response.sendRedirect(request.getContextPath() + "/board/detail?boardId=" + boardId);
+        response.sendRedirect(request.getContextPath() + "/board/list");
     }
 }
