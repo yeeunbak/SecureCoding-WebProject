@@ -130,9 +130,8 @@ public class BoardDAO {
     }
 
     /* =========================
-    관리자 게시글 작성 / 수정 / 삭제
+    관리자 게시글 삭제
     ========================= */
-    // 관리자 게시글 삭제
     public int adminDeleteBoard(int boardId) {
         SqlSession session = null;
 
