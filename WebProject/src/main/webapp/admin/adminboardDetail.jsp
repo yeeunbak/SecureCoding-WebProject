@@ -3,12 +3,13 @@
 <%@ page import="board.dto.BoardFileDTO" %>
 <%@ page import="board.dto.CommentDTO" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ include file="/common/adminCheck.jsp" %>
 
 <%
-    BoardDTO board = (BoardDTO) request.getAttribute("board");
-
-    @SuppressWarnings("unchecked")
+	String loginId = (String) session.getAttribute("loginId");
+    
+	BoardDTO board = (BoardDTO) request.getAttribute("board");
+    
+	@SuppressWarnings("unchecked")
     List<BoardFileDTO> fileList = (List<BoardFileDTO>) request.getAttribute("fileList");
 
     @SuppressWarnings("unchecked")

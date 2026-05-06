@@ -32,9 +32,9 @@
 <script>
     const msg = "<%= request.getParameter("msg") == null ? "" : request.getParameter("msg") %>";
 
-    if (msg === "fail") {
+    if (msg == "fail") {
         alert("아이디 또는 비밀번호가 올바르지 않습니다.");
-    } else if (msg === "logout") {
+    } else if (msg == "logout") {
         alert("로그아웃되었습니다.");
     }
 </script>
