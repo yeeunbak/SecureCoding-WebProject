@@ -2,7 +2,6 @@
 <%@ page import="board.dto.BoardDTO" %>
 <%@ page import="board.dto.BoardFileDTO" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ include file="/common/loginCheck.jsp" %>
 
 <%
     BoardDTO board = (BoardDTO) request.getAttribute("board");

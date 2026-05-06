@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/common/loginCheck.jsp" %>
 
 <%
+	String loginRole = (String) session.getAttribute("loginRole");
+
     if ("ADMIN".equals(loginRole)) {
         response.sendRedirect(request.getContextPath() + "/admin/adminMain.jsp");
         return;
@@ -18,7 +19,7 @@
 <body>
 <div class="container">
     <h2>메인 페이지</h2>
-    <p><%= loginName %>님, 환영합니다.</p>
+    <p>${sessionScope.loginName}님, 환영합니다.</p>
     <div class="btn-area">
     	<input type="button" value="게시판" onclick="location.href='<%=request.getContextPath()%>/board/list'">
     	<input type="button" value="회원정보 수정" onclick="location.href='<%=request.getContextPath()%>/editMember'">

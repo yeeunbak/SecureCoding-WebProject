@@ -3,13 +3,15 @@
 <%@ page import="board.dto.BoardFileDTO" %>
 <%@ page import="board.dto.CommentDTO" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ include file="/common/loginCheck.jsp" %>
 
 <%
+	String loginId = (String) session.getAttribute("loginId");	
+
     BoardDTO board = (BoardDTO) request.getAttribute("board");
 	
 	@SuppressWarnings("unchecked")
     List<BoardFileDTO> fileList = (List<BoardFileDTO>) request.getAttribute("fileList");
+	
 	@SuppressWarnings("unchecked")
 	List<CommentDTO> commentList = (List<CommentDTO>) request.getAttribute("commentList");
 
@@ -19,7 +21,7 @@
     }
 
     int boardId = board.getBoardId();
-    boolean isWriter = loginId.equals(board.getWriterId());
+    boolean isWriter = loginId != null && loginId.equals(board.getWriterId());
 %>
 
 <!DOCTYPE html>
