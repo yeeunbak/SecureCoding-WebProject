@@ -39,11 +39,6 @@ public class BoardDetailController extends HttpServlet {
         String loginId = (String) session.getAttribute("loginId");
         String loginRole = (String) session.getAttribute("loginRole");
 
-        if (loginId == null) {
-            response.sendRedirect(contextPath + "/member/login.jsp");
-            return;
-        }
-
         if (isAdminPage && !"ADMIN".equals(loginRole)) {
             response.sendRedirect(contextPath + "/main.jsp");
             return;

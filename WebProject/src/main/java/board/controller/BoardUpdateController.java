@@ -37,11 +37,6 @@ public class BoardUpdateController extends HttpServlet {
         HttpSession session = request.getSession();
         String loginId = (String) session.getAttribute("loginId");
 
-        if (loginId == null) {
-            response.sendRedirect(request.getContextPath() + "/member/login.jsp");
-            return;
-        }
-
         int boardId = 0;
 
         try {

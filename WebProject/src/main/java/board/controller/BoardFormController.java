@@ -33,11 +33,6 @@ public class BoardFormController extends HttpServlet {
         HttpSession session = request.getSession();
         String loginId = (String) session.getAttribute("loginId");
 
-        if (loginId == null) {
-            response.sendRedirect(request.getContextPath() + "/member/login.jsp");
-            return;
-        }
-
         String boardIdParam = request.getParameter("boardId");
 
         if (boardIdParam != null && !boardIdParam.trim().equals("")) {
