@@ -28,14 +28,7 @@ public class AdminMemberDeleteController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         HttpSession session = request.getSession();
-        String loginRole = (String) session.getAttribute("loginRole");
         String loginId = (String) session.getAttribute("loginId");
-
-        if (!"ADMIN".equals(loginRole)) {
-            response.sendRedirect(request.getContextPath() + "/main.jsp");
-            return;
-        }
-
         String userId = request.getParameter("userId");
 
         if (userId == null || userId.trim().equals("")) {

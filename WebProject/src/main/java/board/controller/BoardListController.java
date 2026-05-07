@@ -11,7 +11,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 @WebServlet({"/board/list", "/admin/board/list"})
 public class BoardListController extends HttpServlet {
@@ -32,16 +31,6 @@ public class BoardListController extends HttpServlet {
         String uri = request.getRequestURI();
         String contextPath = request.getContextPath();
         boolean isAdminPage = uri.equals(contextPath + "/admin/board/list");
-
-        if (isAdminPage) {
-            HttpSession session = request.getSession();
-            String loginRole = (String) session.getAttribute("loginRole");
-
-            if (!"ADMIN".equals(loginRole)) {
-                response.sendRedirect(contextPath + "/main.jsp");
-                return;
-            }
-        }
 
         String searchType = request.getParameter("searchType");
         String keyword = request.getParameter("keyword");

@@ -7,7 +7,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import member.service.MemberService;
 import member.service.MemberServiceImpl;
 
@@ -26,14 +25,6 @@ public class AdminMemberRoleUpdateController extends HttpServlet {
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
-
-        HttpSession session = request.getSession();
-        String loginRole = (String) session.getAttribute("loginRole");
-
-        if (!"ADMIN".equals(loginRole)) {
-            response.sendRedirect(request.getContextPath() + "/main.jsp");
-            return;
-        }
 
         String userId = request.getParameter("userId");
         String role = request.getParameter("role");

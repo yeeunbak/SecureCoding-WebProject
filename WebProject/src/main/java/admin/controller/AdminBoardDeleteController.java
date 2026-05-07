@@ -9,7 +9,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/admin/board/delete")
 public class AdminBoardDeleteController extends HttpServlet {
@@ -26,15 +25,6 @@ public class AdminBoardDeleteController extends HttpServlet {
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
-
-        HttpSession session = request.getSession();
-        String loginRole = (String) session.getAttribute("loginRole");
-
-        // 관리자 체크
-        if (!"ADMIN".equals(loginRole)) {
-            response.sendRedirect(request.getContextPath() + "/main.jsp");
-            return;
-        }
 
         int boardId = 0;
 
