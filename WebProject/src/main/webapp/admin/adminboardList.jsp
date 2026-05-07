@@ -24,6 +24,7 @@
 <meta charset="UTF-8">
 <title>등록된 게시글 관리</title>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/board.css">
+<script defer src="<%= request.getContextPath() %>/js/admin/adminboardList.js"></script>
 </head>
 
 <body>
@@ -80,9 +81,9 @@
             <td><%= board.getViewCount() %></td>
             <td><%= board.getRegDate() %></td>
             <td>
-                <form action="<%= request.getContextPath() %>/admin/board/delete" method="post" style="display:inline;">
+                <form action="<%= request.getContextPath() %>/admin/board/delete" method="post" class="inline-form admin-board-delete-form">
                     <input type="hidden" name="boardId" value="<%= board.getBoardId() %>">
-                    <input type="submit" value="삭제" onclick="return confirm('게시글을 삭제하시겠습니까?');">
+                    <input type="submit" value="삭제" class="admin-board-delete-btn">
                 </form>
             </td>
         </tr>
@@ -91,10 +92,9 @@
     }
 %>
     </table>
-
     <div class="btn-area">
-        <button onclick="location.href='<%= request.getContextPath() %>/board/form?returnUrl=admin'">글쓰기</button>
-        <input type="button" value="관리자 메인" onclick="location.href='<%= request.getContextPath() %>/admin/adminMain.jsp'">
+        <button type="button" class="move-btn" data-url="<%= request.getContextPath() %>/board/form?returnUrl=admin">글쓰기</button>
+        <input type="button" value="관리자 메인" class="move-btn" data-url="<%= request.getContextPath() %>/admin/adminMain.jsp">
     </div>
 </div>
 </body>
