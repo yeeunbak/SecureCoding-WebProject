@@ -236,3 +236,11 @@ select {
     border-radius: 8px;
     box-sizing: border-box;
 }
+
+.hidden {
+    display: none;
+}
+
+.inline-form {
+    display: inline;
+}
