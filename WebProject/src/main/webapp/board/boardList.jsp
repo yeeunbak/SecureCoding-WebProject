@@ -12,8 +12,8 @@
 <head>
 <meta charset="UTF-8">
 <title>게시글 목록</title>
-
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/board.css">
+<script defer src="<%= request.getContextPath() %>/js/board/boardList.js"></script>
 </head>
 
 <body>
@@ -76,8 +76,8 @@
     </table>
 
     <div class="btn-area">
-        <button onclick="location.href='<%= request.getContextPath() %>/board/form'">글쓰기</button>
-        <input type="button" value="메인" onclick="location.href='<%= request.getContextPath() %>/main.jsp'">
+        <button type="button" class="move-btn" data-url="<%= request.getContextPath() %>/board/form">글쓰기</button>
+        <input type="button" value="메인" class="move-btn" data-url="<%= request.getContextPath() %>/main.jsp">
     </div>
 </div>
 </body>
