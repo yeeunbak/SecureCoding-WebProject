@@ -11,8 +11,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
-@WebServlet("/board/list")
+@WebServlet({"/board/list", "/admin/board/list"})
 public class BoardListController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -28,6 +29,20 @@ public class BoardListController extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
 
+        String uri = request.getRequestURI();
+        String contextPath = request.getContextPath();
+        boolean isAdminPage = uri.equals(contextPath + "/admin/board/list");
+
+        if (isAdminPage) {
+            HttpSession session = request.getSession();
+            String loginRole = (String) session.getAttribute("loginRole");
+
+            if (!"ADMIN".equals(loginRole)) {
+                response.sendRedirect(contextPath + "/main.jsp");
+                return;
+            }
+        }
+
         String searchType = request.getParameter("searchType");
         String keyword = request.getParameter("keyword");
 
@@ -39,13 +54,16 @@ public class BoardListController extends HttpServlet {
             keyword = "";
         }
 
-        // 게시글 목록 조회 + 검색
         List<BoardDTO> boardList = boardService.selectBoardList(searchType, keyword);
 
         request.setAttribute("boardList", boardList);
         request.setAttribute("searchType", searchType);
         request.setAttribute("keyword", keyword);
 
-        request.getRequestDispatcher("/board/boardList.jsp").forward(request, response);
+        if (isAdminPage) {
+            request.getRequestDispatcher("/admin/adminboardList.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("/board/boardList.jsp").forward(request, response);
+        }
     }
 }
