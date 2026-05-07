@@ -12,13 +12,17 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet("/board/comment/write")
-public class BoardCommentWriteController extends HttpServlet {
+@WebServlet({
+    "/board/comment/write",
+    "/board/comment/update",
+    "/board/comment/delete"
+})
+public class BoardCommentController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private BoardService boardService;
 
-    public BoardCommentWriteController() {
+    public BoardCommentController() {
         boardService = new BoardServiceImpl();
     }
 
@@ -31,7 +35,6 @@ public class BoardCommentWriteController extends HttpServlet {
         HttpSession session = request.getSession();
         String loginId = (String) session.getAttribute("loginId");
 
-        // 로그인 체크
         if (loginId == null) {
             response.sendRedirect(request.getContextPath() + "/member/login.jsp");
             return;
@@ -45,15 +48,37 @@ public class BoardCommentWriteController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/board/list");
             return;
         }
-        String content = request.getParameter("content");
+
+        String uri = request.getRequestURI();
+        String contextPath = request.getContextPath();
 
         CommentDTO comment = new CommentDTO();
         comment.setBoardId(boardId);
-        comment.setContent(content);
         comment.setWriterId(loginId);
 
-        boardService.insertComment(comment);
+        if (uri.equals(contextPath + "/board/comment/write")) {
+            String content = request.getParameter("content");
+            comment.setContent(content);
 
-        response.sendRedirect(request.getContextPath() + "/board/detail?boardId=" + boardId);
+            boardService.insertComment(comment);
+
+        } else if (uri.equals(contextPath + "/board/comment/update")) {
+            int commentId = Integer.parseInt(request.getParameter("commentId"));
+            String content = request.getParameter("content");
+
+            comment.setCommentId(commentId);
+            comment.setContent(content);
+
+            boardService.updateComment(comment);
+
+        } else if (uri.equals(contextPath + "/board/comment/delete")) {
+            int commentId = Integer.parseInt(request.getParameter("commentId"));
+
+            comment.setCommentId(commentId);
+
+            boardService.deleteComment(comment);
+        }
+
+        response.sendRedirect(contextPath + "/board/detail?boardId=" + boardId);
     }
 }
