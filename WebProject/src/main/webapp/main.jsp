@@ -19,7 +19,7 @@
 <body>
 <div class="container">
     <h2>메인 페이지</h2>
-    <p>${sessionScope.loginName}님, 환영합니다.</p>
+    <p align="center">${sessionScope.loginName}님, 환영합니다.</p>
     <div class="btn-area">
     	<input type="button" value="게시판" onclick="location.href='<%=request.getContextPath()%>/board/list'">
     	<input type="button" value="회원정보 수정" onclick="location.href='<%=request.getContextPath()%>/editMember'">
