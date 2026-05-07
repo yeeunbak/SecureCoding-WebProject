@@ -19,7 +19,7 @@
             <tr>
                 <td>이름</td>
                 <td>
-                    <input type="text" name="userName" required>
+                    <input type="text" name="userName" maxlength="30" required>
                 </td>
             </tr>
 
@@ -27,7 +27,7 @@
                 <td>아이디</td>
                 <td>
                     <div class="input-check-row">
-                        <input type="text" id="userId" name="userId" required>
+                        <input type="text" id="userId" name="userId" maxlength="20" required>
                         <button type="button" id="checkIdBtn">중복확인</button>
                     </div>
                     <div id="userIdMsg" class="field-message"></div>
@@ -37,7 +37,7 @@
             <tr>
                 <td>비밀번호</td>
                 <td>
-                    <input type="password" name="userPw" required>
+                    <input type="password" name="userPw" maxlength="30" required>
                 </td>
             </tr>
 
@@ -52,7 +52,7 @@
                 <td>이메일</td>
                 <td>
                     <div class="input-check-row">
-                        <input type="email" id="userEmail" name="userEmail" required>
+                        <input type="email" id="userEmail" name="userEmail" maxlength="100" required>
                         <button type="button" id="checkEmailBtn">중복확인</button>
                     </div>
                     <div id="userEmailMsg" class="field-message"></div>

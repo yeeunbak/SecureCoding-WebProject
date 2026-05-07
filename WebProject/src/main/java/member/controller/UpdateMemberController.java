@@ -1,7 +1,6 @@
 package member.controller;
 
 import java.io.IOException;
-import java.sql.Date;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
