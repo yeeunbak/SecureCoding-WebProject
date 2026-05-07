@@ -108,6 +108,10 @@ select {
     padding: 6px 0;
 }
 
+.file-upload-area {
+    margin-top: 10px;
+}
+
 .secret-check {
     text-align: left;
 }
