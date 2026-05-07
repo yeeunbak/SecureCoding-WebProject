@@ -41,9 +41,9 @@
     <!-- 로그인 -->
     <select id="login" parameterType="map" resultType="member.dto.MemberDTO">
         SELECT
-            USER_ID AS userId,
-            USER_NAME AS userName,
-            USER_ROLE AS userRole
+            USER_ID AS userId
+            , USER_NAME AS userName
+            , USER_ROLE AS userRole
         FROM TB_MEMBER
         WHERE USER_ID = #{userId}
           AND USER_PW = #{userPw}
@@ -52,12 +52,12 @@
     <!-- 회원 조회 -->
     <select id="selectMemberById" parameterType="string" resultType="member.dto.MemberDTO">
         SELECT
-            USER_ID AS userId,
-            USER_PW AS userPw,
-            USER_NAME AS userName,
-            BIRTH_DATE AS birthDate,
-            USER_EMAIL AS userEmail,
-            USER_ROLE AS userRole
+            USER_ID AS userId
+            , USER_PW AS userPw
+            , USER_NAME AS userName
+            , BIRTH_DATE AS birthDate
+            , USER_EMAIL AS userEmail
+            , USER_ROLE AS userRole
         FROM TB_MEMBER
         WHERE USER_ID = #{userId}
     </select>
@@ -78,10 +78,8 @@
     <update id="updateMember" parameterType="member.dto.MemberDTO">
         UPDATE TB_MEMBER
         SET
-            USER_PW = #{userPw},
-            USER_NAME = #{userName},
-            BIRTH_DATE = #{birthDate},
-            USER_EMAIL = #{userEmail}
+            USER_PW = #{userPw}
+            , USER_NAME = #{userName}
         WHERE USER_ID = #{userId}
     </update>
 

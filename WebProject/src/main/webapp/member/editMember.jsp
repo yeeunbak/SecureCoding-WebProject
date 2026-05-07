@@ -37,19 +37,19 @@
             <tr>
                 <td>이름</td>
                 <td>
-                    <input type="text" name="userName" value="<%=member.getUserName()%>" required>
+                    <input type="text" name="userName" value="<%=member.getUserName()%>" maxlength="30" required>
                 </td>
             </tr>
             <tr>
                 <td>생년월일</td>
                 <td>
-                    <input type="date" name="birthDate" value="<%=member.getBirthDate()%>" required>
+                    <input type="date" name="birthDate" value="<%=member.getBirthDate()%>" readonly>
                 </td>
             </tr>
             <tr>
                 <td>이메일</td>
                 <td>
-                    <input type="email" name="userEmail" value="<%=member.getUserEmail()%>" required>
+                    <input type="email" name="userEmail" value="<%=member.getUserEmail()%>" readonly>
                 </td>
             </tr>
         </table>

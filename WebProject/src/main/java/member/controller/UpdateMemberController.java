@@ -50,17 +50,10 @@ public class UpdateMemberController extends HttpServlet {
         String userId = (String) session.getAttribute("loginId");
         String userPw = request.getParameter("userPw");
         String userName = request.getParameter("userName");
-        String birthDateStr = request.getParameter("birthDate");
-        String userEmail = request.getParameter("userEmail");
         
-        // 이름, 이메일 길이 대비
+        	// 이름 길이 대비
         if (userName == null || userName.trim().equals("") || userName.getBytes("UTF-8").length > 30) {
         	response.sendRedirect(request.getContextPath() + "/editMember?msg=nameError");
-        	return;
-        }
-
-        if (userEmail == null || userEmail.trim().equals("") || userEmail.length() > 100) {
-        	response.sendRedirect(request.getContextPath() + "/editMember?msg=emailError");
         	return;
         }
 
@@ -68,8 +61,6 @@ public class UpdateMemberController extends HttpServlet {
         member.setUserId(userId);
         member.setUserPw(userPw);
         member.setUserName(userName);
-        member.setBirthDate(Date.valueOf(birthDateStr));
-        member.setUserEmail(userEmail);
         
         /* update Service 호출 */
         int result = memberService.updateMember(member);
