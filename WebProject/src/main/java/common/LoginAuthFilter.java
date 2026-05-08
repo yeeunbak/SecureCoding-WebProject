@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @WebFilter({
-    "/main.jsp",
     "/editMember",
     "/board/*"
 })

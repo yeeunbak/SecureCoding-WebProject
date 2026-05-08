@@ -66,9 +66,16 @@ public class UpdateMemberController extends HttpServlet {
 
         if (result > 0) {
             session.setAttribute("loginName", userName);
-            response.sendRedirect(request.getContextPath() + "/main.jsp");
+
+            String loginRole = (String) session.getAttribute("loginRole");
+
+            if ("ADMIN".equals(loginRole)) {
+                response.sendRedirect(request.getContextPath() + "/admin/board/list");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/board/list");
+            }
         } else {
-            response.sendRedirect(request.getContextPath() + "/editMember?msg=fail");
+            response.sendRedirect(request.getContextPath() + "/member/editMember.jsp?msg=fail");
         }
     }
 }

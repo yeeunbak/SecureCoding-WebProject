@@ -71,7 +71,7 @@
     </table>
 
     <div class="btn-area">
-        <input type="button" value="관리자 메인" onclick="location.href='<%=request.getContextPath()%>/admin/adminMain.jsp'">
+        <input type="button" value="관리자 메인" onclick="location.href='<%=request.getContextPath()%>/admin/board/list'">
     </div>
 </div>
 

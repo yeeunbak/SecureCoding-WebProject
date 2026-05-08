@@ -3,7 +3,21 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <%
-	@SuppressWarnings("unchecked")
+    String loginId = (String) session.getAttribute("loginId");
+    String loginName = (String) session.getAttribute("loginName");
+    String loginRole = (String) session.getAttribute("loginRole");
+
+    if (loginId == null) {
+        response.sendRedirect(request.getContextPath() + "/member/login.jsp");
+        return;
+    }
+
+    if ("ADMIN".equals(loginRole)) {
+        response.sendRedirect(request.getContextPath() + "/admin/board/list");
+        return;
+    }
+
+    @SuppressWarnings("unchecked")
     List<BoardDTO> boardList = (List<BoardDTO>) request.getAttribute("boardList");
 %>
 
@@ -18,14 +32,30 @@
 
 <body>
 <div class="board-container">
+
+    <div class="top-menu">
+        <div class="login-user">
+            <strong><%= loginName %></strong>님
+        </div>
+
+        <div class="top-buttons">
+            <button type="button" onclick="location.href='<%= request.getContextPath() %>/editMember'">
+                회원정보 수정
+            </button>
+            <button type="button" onclick="location.href='<%= request.getContextPath() %>/logout'">
+                로그아웃
+            </button>
+        </div>
+    </div>
+
     <h1>게시글 목록</h1>
 
     <div class="search-box">
         <form method="get" action="<%= request.getContextPath() %>/board/list">
             <select name="searchType">
                 <option value="title" <%= "title".equals(request.getAttribute("searchType")) ? "selected" : "" %>>제목</option>
-            	<option value="content" <%= "content".equals(request.getAttribute("searchType")) ? "selected" : "" %>>내용</option>
-            	<option value="writer" <%= "writer".equals(request.getAttribute("searchType")) ? "selected" : "" %>>작성자</option>
+                <option value="content" <%= "content".equals(request.getAttribute("searchType")) ? "selected" : "" %>>내용</option>
+                <option value="writer" <%= "writer".equals(request.getAttribute("searchType")) ? "selected" : "" %>>작성자</option>
             </select>
 
             <input type="text" name="keyword" value="<%= request.getAttribute("keyword") == null ? "" : request.getAttribute("keyword") %>" placeholder="검색어 입력">
@@ -76,8 +106,9 @@
     </table>
 
     <div class="btn-area">
-        <button onclick="location.href='<%= request.getContextPath() %>/board/form'">글쓰기</button>
-        <input type="button" value="메인" onclick="location.href='<%= request.getContextPath() %>/main.jsp'">
+        <button type="button" onclick="location.href='<%= request.getContextPath() %>/board/form'">
+            글쓰기
+        </button>
     </div>
 </div>
 </body>

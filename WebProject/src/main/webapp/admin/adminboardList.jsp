@@ -3,6 +3,20 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <%
+    String loginId = (String) session.getAttribute("loginId");
+    String loginName = (String) session.getAttribute("loginName");
+    String loginRole = (String) session.getAttribute("loginRole");
+
+    if (loginId == null) {
+        response.sendRedirect(request.getContextPath() + "/member/login.jsp");
+        return;
+    }
+
+    if (!"ADMIN".equals(loginRole)) {
+        response.sendRedirect(request.getContextPath() + "/board/list");
+        return;
+    }
+
     @SuppressWarnings("unchecked")
     List<BoardDTO> boardList = (List<BoardDTO>) request.getAttribute("boardList");
 
@@ -22,13 +36,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>등록된 게시글 관리</title>
+<title>관리자 게시판 리스트</title>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/board.css">
 </head>
 
 <body>
 <div class="board-container">
-    <h1>등록된 게시글 관리</h1>
+
+    <div class="top-menu">
+        <div class="login-user">
+            <strong><%= loginName %></strong> 관리자님
+        </div>
+
+        <div class="top-buttons">
+            <button type="button" onclick="location.href='<%= request.getContextPath() %>/admin/member/list'">사용자 관리</button>
+            <button type="button" onclick="location.href='<%= request.getContextPath() %>/editMember'">회원정보 수정</button>
+            <button type="button" onclick="location.href='<%= request.getContextPath() %>/logout'">로그아웃</button>
+        </div>
+    </div>
+
+    <h1>관리자 게시판 리스트</h1>
 
     <div class="search-box">
         <form method="get" action="<%= request.getContextPath() %>/admin/board/list">
@@ -93,8 +120,7 @@
     </table>
 
     <div class="btn-area">
-        <button onclick="location.href='<%= request.getContextPath() %>/board/form?returnUrl=admin'">글쓰기</button>
-        <input type="button" value="관리자 메인" onclick="location.href='<%= request.getContextPath() %>/admin/adminMain.jsp'">
+        <button type="button" onclick="location.href='<%= request.getContextPath() %>/board/form?returnUrl=admin'">글쓰기</button>
     </div>
 </div>
 </body>

@@ -38,7 +38,7 @@ public class AdminAuthFilter extends HttpFilter implements Filter {
         }
 
         if (!"ADMIN".equals(loginRole)) {
-            response.sendRedirect(request.getContextPath() + "/main.jsp");
+            response.sendRedirect(request.getContextPath() + "/board/list");
             return;
         }
 

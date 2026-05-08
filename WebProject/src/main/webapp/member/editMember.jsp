@@ -4,7 +4,13 @@
     MemberDTO member = (MemberDTO) request.getAttribute("member");
 
     if (member == null) {
-        response.sendRedirect(request.getContextPath() + "/main.jsp");
+    	String loginRole = (String) session.getAttribute("loginRole");
+
+    	if ("ADMIN".equals(loginRole)) {
+    	    response.sendRedirect(request.getContextPath() + "/admin/board/list");
+    	} else {
+    	    response.sendRedirect(request.getContextPath() + "/board/list");
+    	}
         return;
     }
 %>
@@ -56,7 +62,7 @@
 
         <div class="btn-area">
             <input type="submit" value="수정하기">
-            <input type="button" value="취소" onclick="location.href='main.jsp'">
+            <input type="button" value="취소" onclick="location.href='<%=request.getContextPath()%>/board/list'">
         </div>
     </form>
 </div>

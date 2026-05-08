@@ -244,3 +244,18 @@ select {
 .inline-form {
     display: inline;
 }
+
+.top-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.login-user {
+    font-size: 16px;
+}
+
+.top-buttons {
+    text-align: right;
+}
