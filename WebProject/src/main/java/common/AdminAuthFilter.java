@@ -17,10 +17,7 @@ public class AdminAuthFilter extends HttpFilter implements Filter {
     private static final long serialVersionUID = 1L;
 
     @Override
-    public void doFilter(HttpServletRequest request,
-                         HttpServletResponse response,
-                         FilterChain chain)
-            throws IOException, ServletException {
+    public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
 
         HttpSession session = request.getSession(false);
 
