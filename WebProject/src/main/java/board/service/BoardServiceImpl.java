@@ -26,6 +26,11 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    public int countBoardByWriterId(String userId) {
+        return boardDAO.countBoardByWriterId(userId);
+    }
+    
+    @Override
     public void updateViewCount(int boardId) {
         boardDAO.updateViewCount(boardId);
     }

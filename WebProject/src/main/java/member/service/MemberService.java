@@ -16,8 +16,6 @@ public interface MemberService {
     MemberDTO getMemberById(String userId);
     
     int updateMember(MemberDTO member);
-    
-    int countBoardByWriterId(String userId);
 
     int deleteMember(String userId);
     

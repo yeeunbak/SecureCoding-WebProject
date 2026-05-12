@@ -59,11 +59,6 @@ public class MemberServiceImpl implements MemberService {
     }
     
     @Override
-    public int countBoardByWriterId(String userId) {
-        return memberDAO.countBoardByWriterId(userId);
-    }
-
-    @Override
     public int deleteMember(String userId) {
         return memberDAO.deleteMember(userId);
     }

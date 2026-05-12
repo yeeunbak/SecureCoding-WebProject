@@ -2,6 +2,8 @@ package admin.controller;
 
 import java.io.IOException;
 
+import board.service.BoardService;
+import board.service.BoardServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,9 +18,11 @@ public class AdminMemberDeleteController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private MemberService memberService;
+    private BoardService boardService;
 
     public AdminMemberDeleteController() {
         memberService = new MemberServiceImpl();
+        boardService = new BoardServiceImpl();
     }
 
     @Override
@@ -42,7 +46,7 @@ public class AdminMemberDeleteController extends HttpServlet {
         }
 
         try {
-            int boardCount = memberService.countBoardByWriterId(userId);
+            int boardCount = boardService.countBoardByWriterId(userId);
 
             if (boardCount > 0) {
                 response.sendRedirect(request.getContextPath() + "/admin/member/list?msg=hasBoard");

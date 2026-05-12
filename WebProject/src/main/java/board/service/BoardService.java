@@ -14,6 +14,9 @@ public interface BoardService {
     // 게시글 상세 조회
     BoardDTO selectBoardDetail(int boardId);
 
+    // 회원이 작성한 게시글 수 조회
+    int countBoardByWriterId(String userId);
+    
     // 조회수 증가
     void updateViewCount(int boardId);
 

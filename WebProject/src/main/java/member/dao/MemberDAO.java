@@ -65,13 +65,6 @@ public class MemberDAO {
         }
     }
 
-    // 회원이 작성한 게시글 수 조회
-    public int countBoardByWriterId(String userId) {
-        try (SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession()) {
-            return session.selectOne(NAMESPACE + "countBoardByWriterId", userId);
-        }
-    }
-
     // 회원 삭제
     public int deleteMember(String userId) {
         try (SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession(false)) {

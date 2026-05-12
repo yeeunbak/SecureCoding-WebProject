@@ -83,13 +83,6 @@
         WHERE USER_ID = #{userId}
     </update>
 
-    <!-- 회원이 작성한 게시글 수 조회 -->
-    <select id="countBoardByWriterId" parameterType="string" resultType="int">
-        SELECT COUNT(*)
-        FROM TB_BOARD
-        WHERE WRITER_ID = #{userId}
-    </select>
-
     <!-- 회원 삭제 -->
     <delete id="deleteMember" parameterType="string">
         DELETE FROM TB_MEMBER
