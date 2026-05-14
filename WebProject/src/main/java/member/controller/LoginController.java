@@ -23,7 +23,7 @@ public class LoginController extends HttpServlet {
         memberService = new MemberServiceImpl();
     }
 
-    /* /login 주소 요청 -> login.jsp 이동 */
+    /* login.jsp 이동 */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

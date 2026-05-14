@@ -7,7 +7,6 @@ import member.dto.MemberDTO;
 public interface MemberService {
 
     int joinMember(MemberDTO member);
-
     boolean isUserIdExists(String userId);
     boolean isEmailExists(String email);
     

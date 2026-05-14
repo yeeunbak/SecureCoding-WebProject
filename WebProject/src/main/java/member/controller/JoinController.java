@@ -24,7 +24,7 @@ public class JoinController extends HttpServlet {
         memberService = new MemberServiceImpl();
     }
 
-    /* /join 주소 요청 -> join.jsp 이동 */
+    /* join.jsp 이동 */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

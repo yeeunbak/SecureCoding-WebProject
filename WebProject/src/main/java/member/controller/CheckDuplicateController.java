@@ -28,7 +28,6 @@ public class CheckDuplicateController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/plain; charset=UTF-8");
 
-        // 파라미터 받기
         String type = request.getParameter("type");
         String value = request.getParameter("value");
 
