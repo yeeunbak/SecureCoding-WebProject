@@ -105,11 +105,10 @@ public class BoardDetailController extends HttpServlet {
         request.setAttribute("commentList", commentList);
         request.setAttribute("isWriter", isWriter);
 
-        // 일반/관리자 상세 화면 분기
         if (isAdminPage) {
-            request.getRequestDispatcher("/admin/adminboardDetail.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/adminboardDetail.jsp").forward(request, response); // 관리자 게시글 상세
         } else {
-            request.getRequestDispatcher("/board/boardDetail.jsp").forward(request, response);
+            request.getRequestDispatcher("/board/boardDetail.jsp").forward(request, response);		// 사용자 게시글 상세
         }
     }
 }

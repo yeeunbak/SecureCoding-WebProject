@@ -44,7 +44,7 @@ public class BoardListController extends HttpServlet {
             searchType = "title";
         }
 
-        // keyword가 null이면 빈 문자열 처리
+        // 검색어 없으면, 빈 문자열 처리
         if (keyword == null) {
             keyword = "";
         }
