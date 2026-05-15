@@ -27,7 +27,7 @@ public class BoardFormController extends HttpServlet {
         boardService = new BoardServiceImpl();
     }
 
-    // 게시글 작성, 수정 화면 -> 요청 처리
+    // 게시글 작성, 수정 화면
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
