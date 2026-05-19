@@ -78,10 +78,9 @@ public class BoardDetailController extends HttpServlet {
         }
 
         // 비밀글 접근 제한
-        if (!isAdminPage                                  // 관리자 페이지 X
-                && "Y".equals(board.getIsSecret())        // 비밀글 O
-                && !loginId.equals(board.getWriterId())   // 작성자 X
-                && !"ADMIN".equals(loginRole)) {          // 관리자 X
+        if ("Y".equals(board.getIsSecret())        		// 비밀글 O
+                && !loginId.equals(board.getWriterId())	// 작성자 X
+                && !"ADMIN".equals(loginRole)) {		// 관리자 X
 
             // 경고창 출력 후 게시글 목록으로 이동
             response.setContentType("text/html; charset=UTF-8");
