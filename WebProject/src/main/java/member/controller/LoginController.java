@@ -25,15 +25,13 @@ public class LoginController extends HttpServlet {
 
     /* login.jsp 이동 */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.sendRedirect(request.getContextPath() + "/member/login.jsp");
     }
 
     /* login */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
 
@@ -47,7 +45,6 @@ public class LoginController extends HttpServlet {
         /* 회원정보 있음 */
         if (member != null) {
             HttpSession session = request.getSession();
-
             session.setAttribute("loginId", member.getUserId());
             session.setAttribute("loginName", member.getUserName());
             session.setAttribute("loginRole", member.getUserRole());
@@ -57,6 +54,7 @@ public class LoginController extends HttpServlet {
             } else {
                 response.sendRedirect(request.getContextPath() + "/board/list");
             }
+         /* 회원정보 없음 */
         } else {
             response.sendRedirect(request.getContextPath() + "/member/login.jsp?msg=fail");
         }
